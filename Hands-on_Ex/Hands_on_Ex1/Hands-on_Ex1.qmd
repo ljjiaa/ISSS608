@@ -1,0 +1,22 @@
+---
+title: "Hands-on Exercise 1"
+date: January 1, 2024
+date-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  toc: true
+---
+
+# Getting started
+
+## Loading R package
+
+```{r}
+pacman::p_load(tidyverse)
+```
+
+# Importing Data
+
+## Wragling Data

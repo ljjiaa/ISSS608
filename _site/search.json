@@ -33,5 +33,26 @@
     "title": "Hands-on Exercise 1",
     "section": "",
     "text": "pacman::p_load(tidyverse)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html",
+    "href": "Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html",
+    "title": "Hands-on Exercise 1",
+    "section": "",
+    "text": "pacman::p_load(tidyverse)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html#loading-r-package",
+    "href": "Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html#loading-r-package",
+    "title": "Hands-on Exercise 1",
+    "section": "",
+    "text": "pacman::p_load(tidyverse)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html#wragling-data",
+    "href": "Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html#wragling-data",
+    "title": "Hands-on Exercise 1",
+    "section": "Wragling Data",
+    "text": "Wragling Data"
   }
 ]

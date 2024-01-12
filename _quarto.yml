@@ -12,6 +12,23 @@ website:
 
           - text: Hands-on Exercise 2
             href: Hands-on_Ex/Hands-on_Ex2/Hands-on_Ex2.html
+            
+      - text: Take-home Exercise
+        menu:
+          - text: Take-home Exercise 1
+            href: Take-home_Ex/Take-home_Ex1/Take-home_Ex1.html
+
+          - text: Take-home Exercise 2
+            href: Take-home_Ex/Take-home_Ex2/Take-home_Ex2.html
+            
+      - text: Visual Analytics Project
+        menu:
+          - text: Take-home Exercise 1
+            href: Take-home_Ex/Take-home_Ex1/Take-home_Ex1.html
+
+          - text: Take-home Exercise 2
+            href: Take-home_Ex/Take-home_Ex2/Take-home_Ex2.html
+            
     right:
       - href: index.qmd
         text: Home
@@ -22,6 +39,10 @@ format:
     theme: cosmo
     css: styles.css
     toc: true
-
+    toc-title: Contents
+    fontsize: medium
+    number-sections: true
+    code-block-bg: "#FFFFFF"
+    
 editor: visual
 

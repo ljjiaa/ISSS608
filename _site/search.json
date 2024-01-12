@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "ISSS608",
+    "title": "ISSS608-VAA",
     "section": "",
-    "text": "Welcome to ISSS608 Visual Analytics and Applications website."
+    "text": "Welcome to my ISSS608 Visual Analytics and Applications learning space."
   },
   {
     "objectID": "about.html",
@@ -18,20 +18,41 @@
     "href": "Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html",
     "title": "Hands-on Exercise 1",
     "section": "",
-    "text": "pacman::p_load(tidyverse)"
+    "text": "Loading R packageImporting DataUnderstanding data\n\n\nFirst, load R packages using the below code:\n\npacman::p_load(tidyverse)\n\n\n\nThe code chunk below imports exam_data.csv into R environment by using read_csv() function of readr package.\n\nexam_data &lt;- read_csv(\"data/Exam_data.csv\")\n\n\n\n\nhead(exam_data)\n\n# A tibble: 6 × 7\n  ID         CLASS GENDER RACE    ENGLISH MATHS SCIENCE\n  &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;\n1 Student321 3I    Male   Malay        21     9      15\n2 Student305 3I    Female Malay        24    22      16\n3 Student289 3H    Male   Chinese      26    16      16\n4 Student227 3F    Male   Chinese      27    77      31\n5 Student318 3I    Male   Malay        27    11      25\n6 Student306 3I    Female Malay        31    16      16\n\n\n\nsummary(exam_data)\n\n      ID               CLASS              GENDER              RACE          \n Length:322         Length:322         Length:322         Length:322        \n Class :character   Class :character   Class :character   Class :character  \n Mode  :character   Mode  :character   Mode  :character   Mode  :character  \n                                                                            \n                                                                            \n                                                                            \n    ENGLISH          MATHS          SCIENCE     \n Min.   :21.00   Min.   : 9.00   Min.   :15.00  \n 1st Qu.:59.00   1st Qu.:58.00   1st Qu.:49.25  \n Median :70.00   Median :74.00   Median :65.00  \n Mean   :67.18   Mean   :69.33   Mean   :61.16  \n 3rd Qu.:78.00   3rd Qu.:85.00   3rd Qu.:74.75  \n Max.   :96.00   Max.   :99.00   Max.   :96.00"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html#loading-r-package",
     "href": "Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html#loading-r-package",
     "title": "Hands-on Exercise 1",
     "section": "",
-    "text": "pacman::p_load(tidyverse)"
+    "text": "First, load R packages using the below code:\n\npacman::p_load(tidyverse, readr)"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html#wragling-data",
     "href": "Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html#wragling-data",
     "title": "Hands-on Exercise 1",
-    "section": "Wragling Data",
-    "text": "Wragling Data"
+    "section": "4.1 Wragling Data",
+    "text": "4.1 Wragling Data"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html#bar-plot-1",
+    "href": "Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html#bar-plot-1",
+    "title": "Hands-on Exercise 1",
+    "section": "3.1 Bar plot",
+    "text": "3.1 Bar plot\n\nBar plot\n\n\n\nggplot(data=exam_data,\n       aes(x= RACE)) +\n  geom_bar(alpha= 0.5) +\n  labs(x = \"Race\",\n       y = \"Number of Students\",\n       title = \"Race distribution of Exam Data\")+\n  theme_classic()+\n  theme(plot.title = element_text(hjust=0.5))"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html#histogram-1",
+    "href": "Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html#histogram-1",
+    "title": "Hands-on Exercise 1",
+    "section": "3.2 Histogram",
+    "text": "3.2 Histogram\n\nggplot(data=exam_data,\n       aes(x= MATHS)) +\n  geom_histogram(bins=20,\n                 color=\"black\",\n                 fill=\"light blue\")\n\n\n\n\n:::"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html#working-with-facet_wrap",
+    "href": "Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html#working-with-facet_wrap",
+    "title": "Hands-on Exercise 1",
+    "section": "4.1 Working with facet_wrap()",
+    "text": "4.1 Working with facet_wrap()\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20) +\n    facet_wrap(~ GENDER)"
   }
 ]

@@ -2,10 +2,24 @@
 
 body {
   background-color: #F6F3EE;
-  font-family: Georgia;
 }
 
 .navbar {
   background-color: #e1d0bc;
+  height: 60px;
 }
 
+
+
+html {
+    zoom: 0.9; /* Zoom out to 90% */
+}
+
+.navbar a,
+.navbar a:visited {
+    color: #000000; 
+}
+
+.navbar li.nav-item a.nav-link span {
+  color: #654321 !important;
+}

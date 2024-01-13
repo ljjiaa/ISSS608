@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "ISSS608-VAA",
     "section": "",
-    "text": "Welcome to my ISSS608 Visual Analytics and Applications learning space."
+    "text": "Welcome to my ISSS608 Visual Analytics and Applications learning space.\n\n\n\n Back to top"
   },
   {
     "objectID": "about.html",
@@ -53,6 +53,27 @@
     "href": "Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html#working-with-facet_wrap",
     "title": "Hands-on Exercise 1",
     "section": "4.1 Working with facet_wrap()",
-    "text": "4.1 Working with facet_wrap()\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20) +\n    facet_wrap(~ GENDER)"
+    "text": "4.1 Working with facet_wrap()\n\nggplot(data=exam_data, \n       aes(x= SCIENCE)) +\n  geom_histogram(bins=20) +\n    facet_wrap(~ GENDER)+\n  theme_bw()"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex1/In-class_Ex1.html",
+    "href": "In-class_Ex/In-class_Ex1/In-class_Ex1.html",
+    "title": "In-class Exercise 1: Now You See It!",
+    "section": "",
+    "text": "In this hands-on exercise, two R packages will be used. They are:\n\ntidyverse, and\nhaven\n\nThe code chunk used is as follows:\n\npacman::p_load(tidyverse, haven)"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex1/In-class_Ex1.html#loading-r-packages",
+    "href": "In-class_Ex/In-class_Ex1/In-class_Ex1.html#loading-r-packages",
+    "title": "In-class Exercise 1: Now You See It!",
+    "section": "",
+    "text": "In this hands-on exercise, two R packages will be used. They are:\n\ntidyverse, and\nhaven\n\nThe code chunk used is as follows:\n\npacman::p_load(tidyverse, haven)"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex1/In-class_Ex1.html#importing-pisa-data",
+    "href": "In-class_Ex/In-class_Ex1/In-class_Ex1.html#importing-pisa-data",
+    "title": "In-class Exercise 1: Now You See It!",
+    "section": "2 Importing PISA data",
+    "text": "2 Importing PISA data\nThe code chunk below uses read_sas() of haven to import PISA data into R environment.\nStep 1: Use read_sas() to read SAS file\n\nstu_qqq &lt;- read_sas(\"data/cy08msp_stu_qqq.sas7bdat\")\n\nStep 2: Filter required data using filter()\n\nstu_qqq_SG &lt;- stu_qqq %&gt;%\n  filter(CNT == \"SGP\")\n\nStep 3: Save filtered data in R Data Format\n\nwrite_rds(stu_qqq_SG,\n          \"data/stu_qqq_SG.rds\")\n\nStep 4: Read saved R Data format file to ensure that it is working\n\nstu_qqq_SG &lt;- read_rds(\"data/stu_qqq_SG.rds\")"
   }
 ]

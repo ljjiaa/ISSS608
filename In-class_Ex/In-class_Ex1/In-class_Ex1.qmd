@@ -1,0 +1,55 @@
+---
+title: "In-class Exercise 1: Now You See It!"
+date: January 13, 2024
+date-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  toc: true
+editor: visual
+---
+
+## Loading R packages
+
+In this hands-on exercise, two R packages will be used. They are:
+
+-   [tidyverse](https://www.tidyverse.org/), and
+-   [haven](https://haven.tidyverse.org/)
+
+The code chunk used is as follows:
+
+```{r}
+pacman::p_load(tidyverse, haven)
+```
+
+## Importing PISA data
+
+The code chunk below uses [read_sas()](https://haven.tidyverse.org/reference/read_sas.html) of [haven](https://haven.tidyverse.org/) to import PISA data into R environment.
+
+Step 1: Use read_sas() to read SAS file
+
+```{r}
+#| eval: false
+stu_qqq <- read_sas("data/cy08msp_stu_qqq.sas7bdat")
+```
+
+Step 2: Filter required data using filter()
+
+```{r}
+#| eval: false
+stu_qqq_SG <- stu_qqq %>%
+  filter(CNT == "SGP")
+```
+
+Step 3: Save filtered data in R Data Format
+```{r}
+#| eval: false
+write_rds(stu_qqq_SG,
+          "data/stu_qqq_SG.rds")
+```
+
+Step 4: Read saved R Data format file to ensure that it is working
+```{r}
+stu_qqq_SG <- read_rds("data/stu_qqq_SG.rds")
+```

@@ -73,9 +73,9 @@ ggplot(data=exam_data,
 ::: panel-tabset
 ## Bar chart
 
-Modifying bar chart by  
-(i) changing geom()  
-(ii) adding labels and title  
+Modifying bar chart by\
+(i) changing geom()\
+(ii) adding labels and title\
 (iii) changing the theme
 
 ```{r}
@@ -90,16 +90,14 @@ ggplot(data=exam_data,
 ```
 
 ::: callout-note
-Opacity of the bar chart has changed.  
-X-axis label, y-axis label and title was added.  
-A classic-looking theme, with x and y axis lines and no gridlines. 
+Opacity of the bar chart has changed.\
+X-axis label, y-axis label and title was added.\
+A classic-looking theme, with x and y axis lines and no gridlines.
 :::
 
 ## Histogram 1
 
-Modifying histogram by changing geom() 
-
-
+Modifying histogram by changing geom()
 
 ```{r}
 ggplot(data=exam_data,
@@ -109,6 +107,7 @@ ggplot(data=exam_data,
                  fill="#E1C2A3",
                  size=0.8)
 ```
+
 ::: callout-note
 Bin, color and fill is now added to the plot
 :::
@@ -130,6 +129,7 @@ Instead of showing count as a whole, now they are split into Male and Female
 :::
 
 ## Box plot 1
+
 Working with stat - the stat_summary() method
 
 ```{r}
@@ -142,7 +142,9 @@ ggplot(data=exam_data,
                colour ="blue",        
                size=5)        
 ```
-## Box plot 1
+
+## Box plot 2
+
 Working with stat - the geom() method
 
 ```{r}
@@ -155,7 +157,6 @@ ggplot(data=exam_data,
              colour ="green",          
              size=5)        
 ```
-
 :::
 
 # More plots...
@@ -164,7 +165,10 @@ ggplot(data=exam_data,
 
 ```{r}
 ggplot(data=exam_data, 
-       aes(x= MATHS)) +
+       aes(x= SCIENCE)) +
   geom_histogram(bins=20) +
-    facet_wrap(~ GENDER)
+    facet_wrap(~ GENDER)+
+  theme_bw()
 ```
+
+

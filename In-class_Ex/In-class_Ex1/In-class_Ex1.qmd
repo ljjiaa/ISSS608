@@ -43,6 +43,7 @@ stu_qqq_SG <- stu_qqq %>%
 ```
 
 Step 3: Save filtered data in R Data Format
+
 ```{r}
 #| eval: false
 write_rds(stu_qqq_SG,
@@ -50,6 +51,7 @@ write_rds(stu_qqq_SG,
 ```
 
 Step 4: Read saved R Data format file to ensure that it is working
+
 ```{r}
 stu_qqq_SG <- read_rds("data/stu_qqq_SG.rds")
 ```

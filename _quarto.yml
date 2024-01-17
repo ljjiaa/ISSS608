@@ -43,12 +43,19 @@ website:
 
 format:
   html:
-    theme: sandstone
+    theme: 
+      - Lumen
+      - custom.scss
     css: styles.css
     toc: true
     toc-title: Contents
+    toc-expand: true
+    toc-depth: 5
     number-sections: true
-    code-block-bg: "#FFFFFF"
+    code-block-bg: "#F6F3EE"
+    grid:
+      margin-width: 400px
+
     
 editor: visual
 

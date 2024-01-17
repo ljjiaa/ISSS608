@@ -1,18 +1,13 @@
 /* css styles */
 
-body {
-  background-color: #F6F3EE;
+html {
+    zoom: 0.95; 
 }
 
 .navbar {
   background-color: #e1d0bc;
-  height: 60px;
-}
-
-
-
-html {
-    zoom: 0.9; /* Zoom out to 90% */
+  height: 65px;
+  border-bottom: none
 }
 
 .navbar a,

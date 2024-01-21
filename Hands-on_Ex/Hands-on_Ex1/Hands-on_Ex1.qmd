@@ -71,9 +71,8 @@ Geometric objects are the actual marks we put on a plot. Refer to complete list 
 -   [`geom_map`](https://ggplot2.tidyverse.org/reference/geom_map.html) for drawing polygons in the shape of a map! (You can access the data to use for these maps by using the map_data() function)\
 -   [`geom_dotplot`](https://ggplot2.tidyverse.org/reference/geom_dotplot.html) for plotting a dot plot.
 -   [`geom_boxplot`](https://ggplot2.tidyverse.org/reference/geom_boxplot.html) for distribution of continuous variable.
-- [`geom_density`](https://ggplot2.tidyverse.org/reference/geom_density.html) for plotting kernel density estimate, a smoothed version of histogram.
-- [`geom_violin`](https://ggplot2.tidyverse.org/reference/geom_violin.html) for compact display of a continuous distribution, blending `geom_boxplot` and `geom_density`.
-
+-   [`geom_density`](https://ggplot2.tidyverse.org/reference/geom_density.html) for plotting kernel density estimate, a smoothed version of histogram.
+-   [`geom_violin`](https://ggplot2.tidyverse.org/reference/geom_violin.html) for compact display of a continuous distribution, blending `geom_boxplot` and `geom_density`.
 
 ### Examples of Geom plot
 

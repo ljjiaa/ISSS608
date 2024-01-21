@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2024-01-17">
+
+<title>ISSS608 - Take-home Exercise 1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">ISSS608</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hands-on-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Hands-on Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercise">    
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex2/Hands-on_Ex2.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-in-class-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">In-class Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-in-class-exercise">    
+        <li>
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex1/In-class_Ex1.html" rel="" target="">
+ <span class="dropdown-text">In-class Exercise 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex2/In-class_Ex2.html" rel="" target="">
+ <span class="dropdown-text">In-class Exercise 2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-take-home-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Take-home Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercise">    
+        <li>
+    <a class="dropdown-item" href="../../Take-home_Ex/Take-home_Ex1/Take-home_Ex1.html" rel="" target="">
+ <span class="dropdown-text">Take-home Exercise 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Take-home_Ex/Take-home_Ex2/Take-home_Ex2.html" rel="" target="">
+ <span class="dropdown-text">Take-home Exercise 2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-visual-analytics-project" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Visual Analytics Project</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-visual-analytics-project">    
+        <li class="dropdown-header">Proposal</li>
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">1</span> Overview</a>
+  <ul>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives"><span class="header-section-number">1.1</span> Objectives</a></li>
+  </ul></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation"><span class="header-section-number">2</span> Data preparation</a>
+  <ul>
+  <li><a href="#loading-r-packages" id="toc-loading-r-packages" class="nav-link" data-scroll-target="#loading-r-packages"><span class="header-section-number">2.1</span> Loading R packages</a></li>
+  <li><a href="#importing-pisa-data" id="toc-importing-pisa-data" class="nav-link" data-scroll-target="#importing-pisa-data"><span class="header-section-number">2.2</span> Importing PISA data</a></li>
+  <li><a href="#data-extracting" id="toc-data-extracting" class="nav-link" data-scroll-target="#data-extracting"><span class="header-section-number">2.3</span> Data extracting</a></li>
+  <li><a href="#summary-statistics-of-data-table" id="toc-summary-statistics-of-data-table" class="nav-link" data-scroll-target="#summary-statistics-of-data-table"><span class="header-section-number">2.4</span> Summary Statistics of data table</a></li>
+  </ul></li>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis"><span class="header-section-number">3</span> Exploratory Data Analysis</a>
+  <ul>
+  <li><a href="#distribution-of-performance-in-mathematics-reading-and-science" id="toc-distribution-of-performance-in-mathematics-reading-and-science" class="nav-link" data-scroll-target="#distribution-of-performance-in-mathematics-reading-and-science"><span class="header-section-number">3.1</span> Distribution of Performance in Mathematics, Reading and Science</a></li>
+  <li><a href="#relationship-between-performance-in-mathematics-reading-and-science-with-gender" id="toc-relationship-between-performance-in-mathematics-reading-and-science-with-gender" class="nav-link" data-scroll-target="#relationship-between-performance-in-mathematics-reading-and-science-with-gender"><span class="header-section-number">3.2</span> Relationship between Performance in Mathematics, Reading and Science with Gender</a></li>
+  <li><a href="#relationship-between-performance-in-mathematics-reading-and-science-with-school-type" id="toc-relationship-between-performance-in-mathematics-reading-and-science-with-school-type" class="nav-link" data-scroll-target="#relationship-between-performance-in-mathematics-reading-and-science-with-school-type"><span class="header-section-number">3.3</span> Relationship between Performance in Mathematics, Reading and Science with School Type</a></li>
+  <li><a href="#relationship-between-performance-in-mathematics-reading-and-science-with-socioeconomic-status" id="toc-relationship-between-performance-in-mathematics-reading-and-science-with-socioeconomic-status" class="nav-link" data-scroll-target="#relationship-between-performance-in-mathematics-reading-and-science-with-socioeconomic-status"><span class="header-section-number">3.4</span> Relationship between Performance in Mathematics, Reading and Science with Socioeconomic Status</a></li>
+  <li><a href="#relationship-between-performances-in-mathematics-and-school-type-across-different-socioeconomic-status" id="toc-relationship-between-performances-in-mathematics-and-school-type-across-different-socioeconomic-status" class="nav-link" data-scroll-target="#relationship-between-performances-in-mathematics-and-school-type-across-different-socioeconomic-status"><span class="header-section-number">3.5</span> Relationship between performances in Mathematics and school type across different socioeconomic status</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Take-home Exercise 1</h1>
+<p class="subtitle lead">Creating data visualisation beyond default</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 17, 2024</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">January 21, 2024</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="overview" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="overview"><span class="header-section-number">1</span> Overview</h2>
+<p>OECD education director Andreas Schleicher shared in a BBC article that “Singapore managed to achieve excellence without wide differences between children from wealthy and disadvantaged families.” (2016) However, there are public concern about the inequality, particularly in the context between elite schools and neighborhood school, between families with higher socioeconomic status and those with relatively lower socioeconomic status and immigration and non-immigration families.</p>
+<section id="objectives" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="objectives"><span class="header-section-number">1.1</span> Objectives</h3>
+<p>This analysis using the 2022 PISA data aims to explore these aspects in Singapore’s context. The objective of this study is to adopt appropriate Exploratory Data Analysis (EDA) methods and ggplot2 functions to reveal:</p>
+<ul>
+<li>the distribution of Singapore students’ performance in mathematics, reading, and science, and</li>
+<li>the relationship between these performances with schools, gender and socioeconomic status of the students.</li>
+</ul>
+</section>
+</section>
+<section id="data-preparation" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="data-preparation"><span class="header-section-number">2</span> Data preparation</h2>
+<section id="loading-r-packages" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="loading-r-packages"><span class="header-section-number">2.1</span> Loading R packages</h3>
+<p>First, following code chunk with <code>pacman::p_load()</code> function is used to load required R packages into our working environment:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, haven, patchwork, ggdist, ggrain, ggridges)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="importing-pisa-data" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="importing-pisa-data"><span class="header-section-number">2.2</span> Importing PISA data</h3>
+<p>The code chunk below uses <a href="https://haven.tidyverse.org/reference/read_sas.html"><code>read_sas()</code></a> of <a href="https://haven.tidyverse.org/">haven</a> to import PISA data into working environment</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>stu_qqq <span class="ot">&lt;-</span> <span class="fu">read_sas</span>(<span class="st">"data/cy08msp_stu_qqq.sas7bdat"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The data table consists of 613,744 observations and 1,279 variables.</p>
+</section>
+<section id="data-extracting" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="data-extracting"><span class="header-section-number">2.3</span> Data extracting</h3>
+<p>Referring to PISA code book, it is noted that the data table include results from 81 participating countries. As this study focus on Singapore’s context, relevant observations is filtered using <code>filter()</code> on the country code variable “CNT”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>stu_qqq_SG <span class="ot">&lt;-</span> stu_qqq <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CNT <span class="sc">==</span> <span class="st">"SGP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The filtered data is then saved in R Data Format and re-imported into the working environment.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(stu_qqq_SG, <span class="st">"data/stu_qqq_SG.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>stu_qqq_SG <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"data/stu_qqq_SG.rds"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>stu_qqq_SG</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6,606 × 1,279
+   CNT   CNTRYID CNTSCHID CNTSTUID CYC   NatCen STRATUM SUBNATIO REGION  OECD
+   &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
+ 1 SGP       702 70200052 70200001 08MS  070200 SGP01   7020000   70200     0
+ 2 SGP       702 70200134 70200002 08MS  070200 SGP01   7020000   70200     0
+ 3 SGP       702 70200112 70200003 08MS  070200 SGP01   7020000   70200     0
+ 4 SGP       702 70200004 70200004 08MS  070200 SGP01   7020000   70200     0
+ 5 SGP       702 70200152 70200005 08MS  070200 SGP01   7020000   70200     0
+ 6 SGP       702 70200043 70200006 08MS  070200 SGP01   7020000   70200     0
+ 7 SGP       702 70200049 70200007 08MS  070200 SGP01   7020000   70200     0
+ 8 SGP       702 70200107 70200008 08MS  070200 SGP01   7020000   70200     0
+ 9 SGP       702 70200012 70200009 08MS  070200 SGP01   7020000   70200     0
+10 SGP       702 70200061 70200010 08MS  070200 SGP01   7020000   70200     0
+# ℹ 6,596 more rows
+# ℹ 1,269 more variables: ADMINMODE &lt;dbl&gt;, LANGTEST_QQQ &lt;dbl&gt;,
+#   LANGTEST_COG &lt;dbl&gt;, LANGTEST_PAQ &lt;dbl&gt;, Option_CT &lt;dbl&gt;, Option_FL &lt;dbl&gt;,
+#   Option_ICTQ &lt;dbl&gt;, Option_WBQ &lt;dbl&gt;, Option_PQ &lt;dbl&gt;, Option_TQ &lt;dbl&gt;,
+#   Option_UH &lt;dbl&gt;, BOOKID &lt;dbl&gt;, ST001D01T &lt;dbl&gt;, ST003D02T &lt;dbl&gt;,
+#   ST003D03T &lt;dbl&gt;, ST004D01T &lt;dbl&gt;, ST250Q01JA &lt;dbl&gt;, ST250Q02JA &lt;dbl&gt;,
+#   ST250Q03JA &lt;dbl&gt;, ST250Q04JA &lt;dbl&gt;, ST250Q05JA &lt;dbl&gt;, ST250D06JA &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p>After completing the previous steps, we are left with a substantial data table consisting 1,279 variables. At this point, it is essential to narrow down these variables to focus on the most relevant ones. By examining the code book, the following variables were chosen to align with the objective of this study:</p>
+<table class="table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 42%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable name</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CNTSTUID</td>
+<td>Intl. Student ID</td>
+<td>Student ID of participating students</td>
+</tr>
+<tr class="even">
+<td>STRATUM</td>
+<td>Stratum ID 5-character<br>
+(cnt + original stratum ID)</td>
+<td>Type of School<br>
+SGP01 : Public / Secondary<br>
+SGP03 : Private / Secondary</td>
+</tr>
+<tr class="odd">
+<td>ST004D01T</td>
+<td>Student (Standardized) Gender</td>
+<td>Gender<br>
+1 : Female<br>
+2 : Male</td>
+</tr>
+<tr class="even">
+<td>ESCS</td>
+<td>Index of economic, social and cultural status</td>
+<td>Measurement of student’s socio-economic status</td>
+</tr>
+<tr class="odd">
+<td>PV1MATH</td>
+<td>Plausible Value 1 in Mathematics</td>
+<td>Student’s performance for Mathematics</td>
+</tr>
+<tr class="even">
+<td>PV1READ</td>
+<td>Plausible Value 1 in Reading</td>
+<td>Student’s performance for Reading</td>
+</tr>
+<tr class="odd">
+<td>PV1SCIE</td>
+<td>Plausible Value 1 in Science</td>
+<td>Student’s performance for Science</td>
+</tr>
+</tbody>
+</table>
+<p>We use <code>select()</code> and <code>rename()</code>from <a href="https://dplyr.tidyverse.org/articles/dplyr.html">dplyr</a> to select the column and rename the variable for clarity.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>stu_qqq_SG_selected <span class="ot">&lt;-</span> stu_qqq_SG <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">'CNTSTUID'</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">'STRATUM'</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">'ST004D01T'</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">'ESCS'</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>         <span class="st">'PV1MATH'</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>         <span class="st">'PV1READ'</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">'PV1SCIE'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">StudentID =</span> CNTSTUID,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">TypeofSchool =</span> STRATUM,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">Gender =</span> ST004D01T,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">MATH =</span> PV1MATH,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">READ =</span> PV1READ,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">SCIENCE =</span> PV1SCIE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="summary-statistics-of-data-table" class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="summary-statistics-of-data-table"><span class="header-section-number">2.4</span> Summary Statistics of data table</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Data table</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Summary</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Duplicate</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Missing</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>stu_qqq_SG_selected</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6,606 × 7
+   StudentID TypeofSchool Gender    ESCS  MATH  READ SCIENCE
+       &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+ 1  70200001 SGP01             1  0.184   639.  676.    711.
+ 2  70200002 SGP01             2  0.826   697.  626.    671.
+ 3  70200003 SGP01             2 -1.04    694.  620.    666.
+ 4  70200004 SGP01             2 -0.961   427.  381.    340.
+ 5  70200005 SGP01             1  0.0856  436.  448.    456.
+ 6  70200006 SGP01             1  0.127   570.  469.    475.
+ 7  70200007 SGP01             2 -0.0154  772.  745.    694.
+ 8  70200008 SGP01             2  1.16    568.  527.    583.
+ 9  70200009 SGP01             1  1.47    740.  722.    725.
+10  70200010 SGP01             2  0.520   586.  540.    590.
+# ℹ 6,596 more rows</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stu_qqq_SG_selected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   StudentID        TypeofSchool           Gender           ESCS        
+ Min.   :70200001   Length:6606        Min.   :1.000   Min.   :-3.5488  
+ 1st Qu.:70201836   Class :character   1st Qu.:1.000   1st Qu.:-0.2327  
+ Median :70203674   Mode  :character   Median :2.000   Median : 0.4817  
+ Mean   :70203673                      Mean   :1.508   Mean   : 0.2904  
+ 3rd Qu.:70205513                      3rd Qu.:2.000   3rd Qu.: 0.9036  
+ Max.   :70207345                      Max.   :2.000   Max.   : 3.2780  
+                                                       NA's   :47       
+      MATH            READ          SCIENCE     
+ Min.   :218.6   Min.   :135.9   Min.   :187.5  
+ 1st Qu.:503.1   1st Qu.:476.9   1st Qu.:495.7  
+ Median :582.5   Median :552.9   Median :568.7  
+ Mean   :574.2   Mean   :544.4   Mean   :560.8  
+ 3rd Qu.:648.2   3rd Qu.:619.6   3rd Qu.:631.1  
+ Max.   :943.0   Max.   :859.5   Max.   :873.3  
+                                                </code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>Check for duplicated value</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>stu_qqq_SG_selected[<span class="fu">duplicated</span>(stu_qqq_SG_selected),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 7
+# ℹ 7 variables: StudentID &lt;dbl&gt;, TypeofSchool &lt;chr&gt;, Gender &lt;dbl&gt;, ESCS &lt;dbl&gt;,
+#   MATH &lt;dbl&gt;, READ &lt;dbl&gt;, SCIENCE &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>Checking for missing data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>stu_qqq_SG_selected <span class="sc">%&gt;%</span> <span class="fu">summarise_all</span>(<span class="fu">funs</span>(<span class="fu">sum</span>(<span class="fu">is.na</span>(.))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 7
+  StudentID TypeofSchool Gender  ESCS  MATH  READ SCIENCE
+      &lt;int&gt;        &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt;
+1         0            0      0    47     0     0       0</code></pre>
+</div>
+</div>
+<p>The output shows 47 missing values for ESCS, the observations were dropped using <code>drop_na()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>stu_qqq_SG_selected2 <span class="ot">&lt;-</span> stu_qqq_SG_selected <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>⚠️ <strong>Data quality issues</strong></p>
+</blockquote>
+<ul>
+<li><strong>Inappropriate column types</strong><br>
+Following columns were converted to appropriate type:
+<ul>
+<li>“StudentID” : convert from <code>&lt;dbl&gt;</code> to <code>&lt;chr&gt;</code></li>
+<li>“TypeofSchool” : convert from <code>&lt;chr&gt;</code> to <code>&lt;fct&gt;</code></li>
+<li>“Gender” : convert from <code>&lt;dbl&gt;</code> to <code>&lt;fct&gt;</code></li>
+</ul></li>
+<li><strong>Non-Descriptive Values</strong><br>
+Values from “Gender” and “TypeofSchool” were recoded to descriptive values using <code>fct_recode</code> to improve clarity.</li>
+<li><strong>Disaggregated ESCS Index</strong><br>
+Binning of the ESCS index into categories of most disadvantaged to the most advantaged groups can facilitate more granular analysis and provide meaningful insights. 4 groups of students of equal size were created using <code>cut_number()</code>, each group comprises 25% of the population of 15-year-old students in Singapore.</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>stu_qqq_SG_converted <span class="ot">&lt;-</span> stu_qqq_SG_selected2 <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># change column type</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">StudentID =</span> <span class="fu">as.character</span>(StudentID),         </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">TypeofSchool =</span> <span class="fu">as.factor</span>(TypeofSchool),</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">Gender =</span> <span class="fu">as.factor</span>(Gender)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># recode non-descriptive values  </span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">fct_recode</span> (Gender,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Female"</span> <span class="ot">=</span> <span class="st">"1"</span>,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Male"</span> <span class="ot">=</span> <span class="st">"2"</span>),</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">TypeofSchool =</span> <span class="fu">fct_recode</span> (TypeofSchool,</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Public"</span> <span class="ot">=</span> <span class="st">"SGP01"</span>,</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Private"</span> <span class="ot">=</span> <span class="st">"SGP03"</span>),</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># binning of disaggregated data       </span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">binned_ESCS =</span> <span class="fu">cut_number</span>(stu_qqq_SG_selected2<span class="sc">$</span>ESCS, </span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">n =</span> <span class="dv">4</span>, </span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Disadvantaged"</span>,</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">"Slightly Disadvantaged"</span>,</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">"Slightly Advantaged"</span>,</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">"Advantaged"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Following final data table is used for Exploratory data analysis:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>stu_qqq_SG_converted</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6,559 × 8
+   StudentID TypeofSchool Gender    ESCS  MATH  READ SCIENCE binned_ESCS        
+   &lt;chr&gt;     &lt;fct&gt;        &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;              
+ 1 70200001  Public       Female  0.184   639.  676.    711. Slightly Disadvant…
+ 2 70200002  Public       Male    0.826   697.  626.    671. Slightly Advantaged
+ 3 70200003  Public       Male   -1.04    694.  620.    666. Disadvantaged      
+ 4 70200004  Public       Male   -0.961   427.  381.    340. Disadvantaged      
+ 5 70200005  Public       Female  0.0856  436.  448.    456. Slightly Disadvant…
+ 6 70200006  Public       Female  0.127   570.  469.    475. Slightly Disadvant…
+ 7 70200007  Public       Male   -0.0154  772.  745.    694. Slightly Disadvant…
+ 8 70200008  Public       Male    1.16    568.  527.    583. Advantaged         
+ 9 70200009  Public       Female  1.47    740.  722.    725. Advantaged         
+10 70200010  Public       Male    0.520   586.  540.    590. Slightly Advantaged
+# ℹ 6,549 more rows</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="exploratory-data-analysis" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="exploratory-data-analysis"><span class="header-section-number">3</span> Exploratory Data Analysis</h2>
+<section id="distribution-of-performance-in-mathematics-reading-and-science" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="distribution-of-performance-in-mathematics-reading-and-science"><span class="header-section-number">3.1</span> Distribution of Performance in Mathematics, Reading and Science</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Distribution of Performance in Mathematics</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>P1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> stu_qqq_SG_converted,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATH)) <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"#459395"</span>, <span class="at">size =</span> <span class="fl">0.6</span>, <span class="at">fill=</span> <span class="st">"#459395"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>)) <span class="sc">+</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(MATH)),</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">linewidth =</span> <span class="fl">0.7</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">400</span>, <span class="at">y =</span> <span class="fl">0.0035</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Mean="</span>, </span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">round</span>(<span class="fu">mean</span>(stu_qqq_SG_converted<span class="sc">$</span>MATH, <span class="at">na.rm=</span>T), <span class="dv">2</span>)),</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">median</span>(MATH)),</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">color=</span> <span class="st">"grey50"</span>, <span class="at">linewidth =</span> <span class="fl">0.7</span>, <span class="at">linetype =</span> <span class="st">"solid"</span>) <span class="sc">+</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">800</span>, <span class="at">y =</span> <span class="fl">0.0035</span>,</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Median="</span>, </span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">round</span>(<span class="fu">median</span>(stu_qqq_SG_converted<span class="sc">$</span>MATH, <span class="at">na.rm=</span>T), <span class="dv">2</span>)),</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"grey20"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  </span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.0005</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">y =</span> <span class="sc">-</span><span class="fl">0.0005</span>)) <span class="sc">+</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Distribution of Performance in Mathematics"</span>) <span class="sc">+</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">12</span>),</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">8</span>)) </span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Distribution of Performance in Reading</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>P2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> stu_qqq_SG_converted,</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> READ)) <span class="sc">+</span></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"#EB7C69"</span>, <span class="at">size =</span> <span class="fl">0.6</span>, <span class="at">fill=</span> <span class="st">"#EB7C69"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>)) <span class="sc">+</span></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(READ)),</span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">linewidth =</span> <span class="fl">0.7</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">400</span>, <span class="at">y =</span> <span class="fl">0.0035</span>,</span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Mean="</span>, </span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">round</span>(<span class="fu">mean</span>(stu_qqq_SG_converted<span class="sc">$</span>READ, <span class="at">na.rm=</span>T), <span class="dv">2</span>)),</span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">median</span>(READ)),</span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>             <span class="at">color=</span> <span class="st">"grey50"</span>, <span class="at">linewidth =</span> <span class="fl">0.7</span>, <span class="at">linetype =</span> <span class="st">"solid"</span>) <span class="sc">+</span></span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">800</span>, <span class="at">y =</span> <span class="fl">0.0035</span>,</span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Median="</span>, </span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">round</span>(<span class="fu">median</span>(stu_qqq_SG_converted<span class="sc">$</span>READ, <span class="at">na.rm=</span>T), <span class="dv">2</span>)),</span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"grey20"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  </span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.0005</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">y =</span> <span class="sc">-</span><span class="fl">0.0005</span>)) <span class="sc">+</span></span>
+<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Distribution of Performance in Reading"</span>,</span>
+<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"density"</span>) <span class="sc">+</span></span>
+<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">12</span>),</span>
+<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">8</span>)) </span>
+<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-53"><a href="#cb20-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Distribution of Performance in Science</span></span>
+<span id="cb20-54"><a href="#cb20-54" aria-hidden="true" tabindex="-1"></a>P3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> stu_qqq_SG_converted,</span>
+<span id="cb20-55"><a href="#cb20-55" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> SCIENCE)) <span class="sc">+</span></span>
+<span id="cb20-56"><a href="#cb20-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"#FDA638"</span>, <span class="at">size =</span> <span class="fl">0.6</span>, <span class="at">fill=</span> <span class="st">"#FDA638"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb20-57"><a href="#cb20-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>)) <span class="sc">+</span></span>
+<span id="cb20-58"><a href="#cb20-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(SCIENCE)),</span>
+<span id="cb20-59"><a href="#cb20-59" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">linewidth =</span> <span class="fl">0.7</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb20-60"><a href="#cb20-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">400</span>, <span class="at">y =</span> <span class="fl">0.0035</span>,</span>
+<span id="cb20-61"><a href="#cb20-61" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Mean="</span>, </span>
+<span id="cb20-62"><a href="#cb20-62" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">round</span>(<span class="fu">mean</span>(stu_qqq_SG_converted<span class="sc">$</span>SCIENCE, <span class="at">na.rm=</span>T), <span class="dv">2</span>)),</span>
+<span id="cb20-63"><a href="#cb20-63" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb20-64"><a href="#cb20-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">median</span>(SCIENCE)),</span>
+<span id="cb20-65"><a href="#cb20-65" aria-hidden="true" tabindex="-1"></a>             <span class="at">color=</span> <span class="st">"grey50"</span>, <span class="at">linewidth =</span> <span class="fl">0.7</span>, <span class="at">linetype =</span> <span class="st">"solid"</span>) <span class="sc">+</span></span>
+<span id="cb20-66"><a href="#cb20-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">800</span>, <span class="at">y =</span> <span class="fl">0.0035</span>,</span>
+<span id="cb20-67"><a href="#cb20-67" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Median="</span>, </span>
+<span id="cb20-68"><a href="#cb20-68" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">round</span>(<span class="fu">median</span>(stu_qqq_SG_converted<span class="sc">$</span>SCIENCE, <span class="at">na.rm=</span>T), <span class="dv">2</span>)),</span>
+<span id="cb20-69"><a href="#cb20-69" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"grey20"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  </span>
+<span id="cb20-70"><a href="#cb20-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.0005</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb20-71"><a href="#cb20-71" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">y =</span> <span class="sc">-</span><span class="fl">0.0005</span>)) <span class="sc">+</span></span>
+<span id="cb20-72"><a href="#cb20-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb20-73"><a href="#cb20-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Distribution of Performance in Science"</span>) <span class="sc">+</span></span>
+<span id="cb20-74"><a href="#cb20-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb20-75"><a href="#cb20-75" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb20-76"><a href="#cb20-76" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">12</span>),</span>
+<span id="cb20-77"><a href="#cb20-77" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">8</span>)) </span>
+<span id="cb20-78"><a href="#cb20-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-79"><a href="#cb20-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-80"><a href="#cb20-80" aria-hidden="true" tabindex="-1"></a>P1 <span class="sc">/</span> P2 <span class="sc">/</span> P3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="Take-home_Ex1_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The density plot for performance in Mathematics, reading and science shows a predominantly normal distribution with a slight left skew, as indicated by mean scores being lower than medians in all subjects. The box plot below reveals tight interquartile range in all subjects, which indicates that 50% of the students performed within a relatively narrow range, emphasizing a strong central tendency.</p>
+<p>Across three subjects, mathematics showed the highest performance on average, followed by Science and Reading. A similar pattern is observed in the median scores. In mathematics, the right tail extends farther than the other two subjects, indicating the occurrence of maximum PV value in this subject. In reading, the box plot shows a relatively higher number of outliers at the lower range, which indicates this subject has the weakest performance among all subjects.</p>
+<p>These distributions could be further explored in the context of school, gender, and socioeconomic background to determine if these factors influence the performance distribution.</p>
+</section>
+<section id="relationship-between-performance-in-mathematics-reading-and-science-with-gender" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="relationship-between-performance-in-mathematics-reading-and-science-with-gender"><span class="header-section-number">3.2</span> Relationship between Performance in Mathematics, Reading and Science with Gender</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>P4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span> stu_qqq_SG_converted,</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> Gender, <span class="at">y=</span> MATH)) <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">color =</span> <span class="st">"#459395"</span>, <span class="at">size =</span> <span class="fl">0.6</span>, <span class="at">fill=</span> <span class="st">"#459395"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width=</span> <span class="fl">0.4</span>, <span class="at">outlier.colour =</span> <span class="st">"grey30"</span>, <span class="at">outlier.size =</span> <span class="dv">2</span>, </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">outlier.alpha =</span> <span class="fl">0.5</span>, <span class="at">outlier.shape =</span> <span class="dv">19</span>) <span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"point"</span>,       </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">fun.y=</span><span class="st">"mean"</span>,         </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span><span class="st">"red"</span>,        </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>)) <span class="sc">+</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"#999999"</span>, <span class="st">"#E69F00"</span>)) <span class="sc">+</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Mathematics"</span>) <span class="sc">+</span>  </span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">12</span>, <span class="at">hjust=</span> <span class="fl">0.5</span>),</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">10</span>)) </span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>P5 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span> stu_qqq_SG_converted,</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> Gender, <span class="at">y=</span> READ)) <span class="sc">+</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">color =</span> <span class="st">"#EB7C69"</span>, <span class="at">size =</span> <span class="fl">0.6</span>, <span class="at">fill=</span> <span class="st">"#EB7C69"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width=</span> <span class="fl">0.4</span>, <span class="at">outlier.colour =</span> <span class="st">"grey30"</span>, <span class="at">outlier.size =</span> <span class="dv">2</span>, </span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>               <span class="at">outlier.alpha =</span> <span class="fl">0.5</span>, <span class="at">outlier.shape =</span> <span class="dv">19</span>) <span class="sc">+</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"point"</span>,       </span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>               <span class="at">fun.y=</span><span class="st">"mean"</span>,         </span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span><span class="st">"red"</span>,        </span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>               <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>)) <span class="sc">+</span>  </span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Reading"</span>) <span class="sc">+</span> </span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">12</span>, <span class="at">hjust=</span> <span class="fl">0.5</span>),</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">10</span>)) </span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>P6 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span> stu_qqq_SG_converted,</span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> Gender, <span class="at">y=</span> SCIENCE)) <span class="sc">+</span></span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">color =</span> <span class="st">"#FDA638"</span>, <span class="at">size =</span> <span class="fl">0.6</span>, <span class="at">fill=</span> <span class="st">"#FDA638"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width=</span> <span class="fl">0.4</span>, <span class="at">outlier.colour =</span> <span class="st">"grey30"</span>, <span class="at">outlier.size =</span> <span class="dv">2</span>, </span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>               <span class="at">outlier.alpha =</span> <span class="fl">0.5</span>, <span class="at">outlier.shape =</span> <span class="dv">19</span>) <span class="sc">+</span></span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"point"</span>,       </span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a>               <span class="at">fun.y=</span><span class="st">"mean"</span>,         </span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span><span class="st">"red"</span>,        </span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a>               <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>)) <span class="sc">+</span>  </span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Science"</span>) <span class="sc">+</span> </span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">12</span>, <span class="at">hjust=</span> <span class="fl">0.5</span>),</span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">10</span>)) </span>
+<span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a>(P4 <span class="sc">+</span> P5 <span class="sc">+</span> P6) <span class="sc">+</span></span>
+<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_annotation</span>(<span class="at">title=</span> <span class="st">"Gender-Based Performance Comparison "</span>,</span>
+<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a>                    <span class="at">theme =</span> <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">15</span>, <span class="at">hjust=</span> <span class="fl">0.5</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="Take-home_Ex1_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>This EDA visualization utilizes violin plots with integrated box plots to compare academic performance by gender across Mathematics, Reading, and Science among Singaporean students. The violin plots suggest a roughly normal distribution for scores in all subjects, with slight variations. The ‘body’ of each violin is bulged in the middle, indicating a concentration of scores around the median. From the box plot, it is observed that in all subjects, the median and mean are close to each other, with the mean slightly lower, suggesting a modest left skew in the data.</p>
+<p>In mathematics, the plots indicate males performed slightly better than females, with a slightly higher median and mean. The outliers at the higher end of the scores suggest that some students achieve excellent performance. In Reading, females markedly outperform males, evidenced by higher median and mean values, and a wider distribution at the higher end of scores. Science shows a near-identical performance between genders, with both median and mean scores closely aligned, suggesting minimal gender variation in this subject.</p>
+<p>In general, performance across different subjects for male and females exhibits a slight variation.</p>
+</section>
+<section id="relationship-between-performance-in-mathematics-reading-and-science-with-school-type" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="relationship-between-performance-in-mathematics-reading-and-science-with-school-type"><span class="header-section-number">3.3</span> Relationship between Performance in Mathematics, Reading and Science with School Type</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>P7 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span> stu_qqq_SG_converted,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> TypeofSchool, <span class="at">y=</span> MATH)) <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">color =</span> <span class="st">"#459395"</span>, <span class="at">size =</span> <span class="fl">0.6</span>, <span class="at">fill=</span> <span class="st">"#459395"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width=</span> <span class="fl">0.4</span>, <span class="at">outlier.colour =</span> <span class="st">"grey30"</span>, <span class="at">outlier.size =</span> <span class="dv">2</span>, </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">outlier.alpha =</span> <span class="fl">0.5</span>, <span class="at">outlier.shape =</span> <span class="dv">19</span>) <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"point"</span>,       </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">fun.y=</span><span class="st">"mean"</span>,         </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span><span class="st">"red"</span>,        </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>)) <span class="sc">+</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"#999999"</span>, <span class="st">"#E69F00"</span>)) <span class="sc">+</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Mathematics"</span>) <span class="sc">+</span>  </span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">12</span>, <span class="at">hjust=</span> <span class="fl">0.5</span>),</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">10</span>)) </span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>P8 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span> stu_qqq_SG_converted,</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> TypeofSchool, <span class="at">y=</span> READ)) <span class="sc">+</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">color =</span> <span class="st">"#EB7C69"</span>, <span class="at">size =</span> <span class="fl">0.6</span>, <span class="at">fill=</span> <span class="st">"#EB7C69"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width=</span> <span class="fl">0.4</span>, <span class="at">outlier.colour =</span> <span class="st">"grey30"</span>, <span class="at">outlier.size =</span> <span class="dv">2</span>, </span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>               <span class="at">outlier.alpha =</span> <span class="fl">0.5</span>, <span class="at">outlier.shape =</span> <span class="dv">19</span>) <span class="sc">+</span></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"point"</span>,       </span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>               <span class="at">fun.y=</span><span class="st">"mean"</span>,         </span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span><span class="st">"red"</span>,        </span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>               <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>)) <span class="sc">+</span>  </span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Reading"</span>) <span class="sc">+</span> </span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">12</span>, <span class="at">hjust=</span> <span class="fl">0.5</span>),</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">10</span>)) </span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>P9 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span> stu_qqq_SG_converted,</span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> TypeofSchool, <span class="at">y=</span> SCIENCE)) <span class="sc">+</span></span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">color =</span> <span class="st">"#FDA638"</span>, <span class="at">size =</span> <span class="fl">0.6</span>, <span class="at">fill=</span> <span class="st">"#FDA638"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width=</span> <span class="fl">0.4</span>, <span class="at">outlier.colour =</span> <span class="st">"grey30"</span>, <span class="at">outlier.size =</span> <span class="dv">2</span>, </span>
+<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a>               <span class="at">outlier.alpha =</span> <span class="fl">0.5</span>, <span class="at">outlier.shape =</span> <span class="dv">19</span>) <span class="sc">+</span></span>
+<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"point"</span>,       </span>
+<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a>               <span class="at">fun.y=</span><span class="st">"mean"</span>,         </span>
+<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span><span class="st">"red"</span>,        </span>
+<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a>               <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>)) <span class="sc">+</span>  </span>
+<span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb22-45"><a href="#cb22-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Science"</span>) <span class="sc">+</span> </span>
+<span id="cb22-46"><a href="#cb22-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb22-47"><a href="#cb22-47" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb22-48"><a href="#cb22-48" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb22-49"><a href="#cb22-49" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">12</span>, <span class="at">hjust=</span> <span class="fl">0.5</span>),</span>
+<span id="cb22-50"><a href="#cb22-50" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">10</span>)) </span>
+<span id="cb22-51"><a href="#cb22-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-52"><a href="#cb22-52" aria-hidden="true" tabindex="-1"></a>(P7 <span class="sc">+</span> P8 <span class="sc">+</span> P9) <span class="sc">+</span></span>
+<span id="cb22-53"><a href="#cb22-53" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_annotation</span>(<span class="at">title=</span> <span class="st">"School-Based Performance Comparison "</span>,</span>
+<span id="cb22-54"><a href="#cb22-54" aria-hidden="true" tabindex="-1"></a>                    <span class="at">theme =</span> <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">15</span>, <span class="at">hjust=</span> <span class="fl">0.5</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="Take-home_Ex1_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The EDA visualization comparing student performance across Mathematics, Reading, and Science reveals distinct patterns. Public schools exhibit a broader distribution of scores, suggesting a diverse range of performance levels. Conversely, private schools show a narrower spread, as evidenced by the shorter violin plots, yet with a wider width at the median, indicating a dense clustering of scores around the central tendency. This is further supported by the narrower interquartile range observed in private schools, pointing to a more consistent performance among their students.</p>
+<p>Additionally, the mean and median scores in private schools are marginally higher than those in public schools, suggesting a slight academic advantage. Moreover, public schools display a greater number of outliers, especially in the lower score range, highlighting a segment of students with performance significantly below the average.</p>
+<p>These insights suggest that while student performance in private schools is more consistent with a tendency towards higher achievement, public schools demonstrate a wider variability in student outcomes.</p>
+</section>
+<section id="relationship-between-performance-in-mathematics-reading-and-science-with-socioeconomic-status" class="level3" data-number="3.4">
+<h3 data-number="3.4" class="anchored" data-anchor-id="relationship-between-performance-in-mathematics-reading-and-science-with-socioeconomic-status"><span class="header-section-number">3.4</span> Relationship between Performance in Mathematics, Reading and Science with Socioeconomic Status</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>P10 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span> stu_qqq_SG_converted,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> binned_ESCS, <span class="at">y=</span> MATH)) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">color =</span> <span class="st">"#459395"</span>, <span class="at">size =</span> <span class="fl">0.6</span>, <span class="at">fill=</span> <span class="st">"#459395"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width=</span> <span class="fl">0.4</span>, <span class="at">outlier.colour =</span> <span class="st">"grey30"</span>, <span class="at">outlier.size =</span> <span class="dv">2</span>, </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">outlier.alpha =</span> <span class="fl">0.5</span>, <span class="at">outlier.shape =</span> <span class="dv">19</span>) <span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"point"</span>,       </span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">fun.y=</span><span class="st">"mean"</span>,         </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span><span class="st">"red"</span>,        </span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>)) <span class="sc">+</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"#999999"</span>, <span class="st">"#E69F00"</span>)) <span class="sc">+</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Mathematics"</span>) <span class="sc">+</span>  </span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">12</span>, <span class="at">hjust=</span> <span class="fl">0.5</span>),</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">8</span>),</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">breaks =</span> <span class="fu">unique</span>(stu_qqq_SG_converted<span class="sc">$</span>binned_ESCS), </span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>                            <span class="at">labels =</span> <span class="fu">str_wrap</span>(<span class="fu">unique</span>(stu_qqq_SG_converted<span class="sc">$</span>binned_ESCS),</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">width =</span> <span class="dv">10</span>))</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>P11 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span> stu_qqq_SG_converted,</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> binned_ESCS, <span class="at">y=</span> READ)) <span class="sc">+</span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">color =</span> <span class="st">"#EB7C69"</span>, <span class="at">size =</span> <span class="fl">0.6</span>, <span class="at">fill=</span> <span class="st">"#EB7C69"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width=</span> <span class="fl">0.4</span>, <span class="at">outlier.colour =</span> <span class="st">"grey30"</span>, <span class="at">outlier.size =</span> <span class="dv">2</span>, </span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>               <span class="at">outlier.alpha =</span> <span class="fl">0.5</span>, <span class="at">outlier.shape =</span> <span class="dv">19</span>) <span class="sc">+</span></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"point"</span>,       </span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>               <span class="at">fun.y=</span><span class="st">"mean"</span>,         </span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span><span class="st">"red"</span>,        </span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>               <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>)) <span class="sc">+</span>  </span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Reading"</span>) <span class="sc">+</span> </span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">12</span>, <span class="at">hjust=</span> <span class="fl">0.5</span>),</span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">8</span>),</span>
+<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span>  </span>
+<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">breaks =</span> <span class="fu">unique</span>(stu_qqq_SG_converted<span class="sc">$</span>binned_ESCS), </span>
+<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a>                            <span class="at">labels =</span> <span class="fu">str_wrap</span>(<span class="fu">unique</span>(stu_qqq_SG_converted<span class="sc">$</span>binned_ESCS),</span>
+<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">width =</span> <span class="dv">10</span>))</span>
+<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a>P12 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span> stu_qqq_SG_converted,</span>
+<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> binned_ESCS, <span class="at">y=</span> SCIENCE)) <span class="sc">+</span></span>
+<span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">color =</span> <span class="st">"#FDA638"</span>, <span class="at">size =</span> <span class="fl">0.6</span>, <span class="at">fill=</span> <span class="st">"#FDA638"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width=</span> <span class="fl">0.4</span>, <span class="at">outlier.colour =</span> <span class="st">"grey30"</span>, <span class="at">outlier.size =</span> <span class="dv">2</span>, </span>
+<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a>               <span class="at">outlier.alpha =</span> <span class="fl">0.5</span>, <span class="at">outlier.shape =</span> <span class="dv">19</span>) <span class="sc">+</span></span>
+<span id="cb23-48"><a href="#cb23-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"point"</span>,       </span>
+<span id="cb23-49"><a href="#cb23-49" aria-hidden="true" tabindex="-1"></a>               <span class="at">fun.y=</span><span class="st">"mean"</span>,         </span>
+<span id="cb23-50"><a href="#cb23-50" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span><span class="st">"red"</span>,        </span>
+<span id="cb23-51"><a href="#cb23-51" aria-hidden="true" tabindex="-1"></a>               <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>)) <span class="sc">+</span>  </span>
+<span id="cb23-52"><a href="#cb23-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb23-53"><a href="#cb23-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Science"</span>) <span class="sc">+</span> </span>
+<span id="cb23-54"><a href="#cb23-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb23-55"><a href="#cb23-55" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb23-56"><a href="#cb23-56" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb23-57"><a href="#cb23-57" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">12</span>, <span class="at">hjust=</span> <span class="fl">0.5</span>),</span>
+<span id="cb23-58"><a href="#cb23-58" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">8</span>),</span>
+<span id="cb23-59"><a href="#cb23-59" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span>  </span>
+<span id="cb23-60"><a href="#cb23-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">breaks =</span> <span class="fu">unique</span>(stu_qqq_SG_converted<span class="sc">$</span>binned_ESCS), </span>
+<span id="cb23-61"><a href="#cb23-61" aria-hidden="true" tabindex="-1"></a>                            <span class="at">labels =</span> <span class="fu">str_wrap</span>(<span class="fu">unique</span>(stu_qqq_SG_converted<span class="sc">$</span>binned_ESCS),</span>
+<span id="cb23-62"><a href="#cb23-62" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">width =</span> <span class="dv">10</span>))</span>
+<span id="cb23-63"><a href="#cb23-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-64"><a href="#cb23-64" aria-hidden="true" tabindex="-1"></a>(P10 <span class="sc">+</span> P11 <span class="sc">+</span> P12) <span class="sc">+</span></span>
+<span id="cb23-65"><a href="#cb23-65" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_annotation</span>(<span class="at">title=</span> <span class="st">"Socioeconomic-Based Performance Comparison "</span>,</span>
+<span id="cb23-66"><a href="#cb23-66" aria-hidden="true" tabindex="-1"></a>                    <span class="at">theme =</span> <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">15</span>, <span class="at">hjust=</span> <span class="fl">0.5</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="Take-home_Ex1_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The visualization assesses student performance in Mathematics, Reading, and Science against socioeconomic status, categorized as Disadvantaged, Slightly Disadvantaged, Slightly Advantaged, and Advantaged. Across all subjects, a clear pattern is observable, where students from more advantaged backgrounds tend to achieve higher scores. This is evidenced by the upward shift in both the median (the horizontal line within the box) and the mean (the red dot) as we move from Disadvantaged to Advantaged.</p>
+<p>For all three subjects, the spread of scores (indicated by the width of the violin plots) is broader for Disadvantaged and Slightly Disadvantaged groups, suggesting more variability in performance. It is also observed that the violin plots widen around the 50th percentile range, alongside a narrower interquartile range, indicating a denser concentration of scores near the median as we transition from disadvantaged to advantaged socioeconomic groups.</p>
+<p>This visualization suggests that socioeconomic status has a consistent correlation with academic performance across different subjects. Further analysis could delve into the specific aspects of socioeconomic advantage that contribute to these patterns.</p>
+</section>
+<section id="relationship-between-performances-in-mathematics-and-school-type-across-different-socioeconomic-status" class="level3" data-number="3.5">
+<h3 data-number="3.5" class="anchored" data-anchor-id="relationship-between-performances-in-mathematics-and-school-type-across-different-socioeconomic-status"><span class="header-section-number">3.5</span> Relationship between performances in Mathematics and school type across different socioeconomic status</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span> stu_qqq_SG_converted,</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>  TypeofSchool, <span class="at">y=</span> MATH)) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width=</span> <span class="fl">0.5</span>, <span class="at">outlier.colour =</span> <span class="st">"grey30"</span>, <span class="at">outlier.size =</span> <span class="dv">2</span>, </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">outlier.alpha =</span> <span class="fl">0.5</span>, <span class="at">outlier.shape =</span> <span class="dv">19</span>) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"point"</span>,       </span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">fun.y=</span><span class="st">"mean"</span>,         </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span><span class="st">"red"</span>,        </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>)) <span class="sc">+</span>  </span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> binned_ESCS) <span class="sc">+</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span> <span class="fu">str_wrap</span>(<span class="st">"Comparative Analysis of Mathematics Performance by </span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="st">                       School Type Across Socioeconomic Tiers"</span>),</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Type of School"</span>) <span class="sc">+</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">12</span>, <span class="at">hjust=</span> .<span class="dv">5</span>),</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="Take-home_Ex1_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Extending the findings from the previous section, where we noted that private schools typically demonstrate higher and more consistent student performance, and students from advantaged backgrounds achieve higher scores, we now examine the impact of school type on performance across different socioeconomic levels.</p>
+<p>The visualization offers a comparative analysis of Mathematics performance between public and private schools across different levels of socioeconomic status. For students classified as disadvantaged, private schools show a higher mean score, indicating a performance advantage in this group. As we move to the slightly disadvantaged socioeconomic status bracket, the mean scores for private schools remain higher, though the difference is less obvious.</p>
+<p>Interestingly, a shift occurs among the slightly advantaged group, where the mean scores for public schools marginally surpass those of private schools. This trend amplifies within the advantaged category, where students in public schools outperform those in private schools, as indicated by higher mean scores. These insights suggest that school type affects educational outcomes differently across socioeconomic groups.</p>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

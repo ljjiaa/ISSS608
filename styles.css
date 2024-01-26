@@ -4,17 +4,34 @@ html {
     zoom: 0.95; 
 }
 
-.navbar {
-  background-color: #e1d0bc;
-  height: 65px;
-  border-bottom: none
+
+.focusbox {
+  padding: 1.2em 2em 0.8em 4.5em;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  border: 3px solid #e1d0bc;
+  border-radius: 15px;
+  font-size: 15px;
+  background: #FFFFFF 15px center/3em no-repeat;
 }
 
-.navbar a,
-.navbar a:visited {
-    color: #000000; 
+.focus {
+  background-image: url("Images/sticky-notes.png");
 }
 
-.navbar li.nav-item a.nav-link span {
-  color: #654321 !important;
+
+
+.codebox {
+  padding: 1.2em 2em 0.8em 4.5em;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  border: 3px dashed #e1d0bc;
+  border-radius: 20px;
+  font-size: 15px;
+  background: #FFFFFF 15px 15px/2.5em no-repeat;
 }
+
+.code {
+  background-image: url("Images/code.png");
+}
+

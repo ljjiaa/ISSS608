@@ -228,7 +228,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#plot-4" id="toc-plot-4" class="nav-link" data-scroll-target="#plot-4"><span class="header-section-number">3.4</span> Plot 4</a>
   <ul>
-  <li><a href="#crtique" id="toc-crtique" class="nav-link" data-scroll-target="#crtique"><span class="header-section-number">3.4.1</span> Crtique</a></li>
+  <li><a href="#critique-3" id="toc-critique-3" class="nav-link" data-scroll-target="#critique-3"><span class="header-section-number">3.4.1</span> Critique</a></li>
   <li><a href="#sketch-3" id="toc-sketch-3" class="nav-link" data-scroll-target="#sketch-3"><span class="header-section-number">3.4.2</span> Sketch</a></li>
   <li><a href="#make-over-3" id="toc-make-over-3" class="nav-link" data-scroll-target="#make-over-3"><span class="header-section-number">3.4.3</span> Make Over</a></li>
   </ul></li>
@@ -278,7 +278,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="loading-r-packages" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="loading-r-packages"><span class="header-section-number">2.1</span> Loading R packages</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, haven, patchwork, ggdist, ggrain, ggridges)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, haven, patchwork, ggdist, ggrain, ggridges, quarto)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="importing-pisa-data" class="level3" data-number="2.2">
@@ -756,8 +756,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="3.4" class="anchored" data-anchor-id="plot-4"><span class="header-section-number">3.4</span> Plot 4</h3>
 <p>The following plot reveals the relationship between student performance and socioeconomic status across different subjects.</p>
 <p><img src="Images/Plot_4.png" class="img-fluid"></p>
-<section id="crtique" class="level4" data-number="3.4.1">
-<h4 data-number="3.4.1" class="anchored" data-anchor-id="crtique"><span class="header-section-number">3.4.1</span> Crtique</h4>
+<section id="critique-3" class="level4" data-number="3.4.1">
+<h4 data-number="3.4.1" class="anchored" data-anchor-id="critique-3"><span class="header-section-number">3.4.1</span> Critique</h4>
 <p><span style="font-size: 20px; font-weight: bold;"><em>Clarity</em></span></p>
 <p><strong>Title</strong> : The title is too generic and does not provide enough context about the plot.</p>
 <p><strong>Plot type and layout</strong>: Good choice of box plot and side-by-side arrangement for comparing the performance of various socioeconomic status across different subjects.</p>
@@ -855,6 +855,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Consistency in Axes</strong>: The y-axis values were standardized for all plots, which enabled direct comparison across all subjects.</p>
 <p><strong>Subtitle</strong>: Placing subject names as subtitles provides clear identification for each plot.</p>
 <p><strong>Data Points</strong>: The opacity of the outliers are adjusted to enhance clarity, and mean values are highlighted with red dots for easy reference.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Include the pop-up template --&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;iframe</span> <span class="er">src</span><span class="ot">=</span><span class="st">"popup_template.html"</span> <span class="er">frameborder</span><span class="ot">=</span><span class="st">"0"</span> <span class="er">width</span><span class="ot">=</span><span class="st">"100%"</span> <span class="er">height</span><span class="ot">=</span><span class="st">"400"</span><span class="kw">&gt;&lt;/iframe&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>To view the comparison, click <a href="#popup">here</a>.</p>
 
 
 </section>

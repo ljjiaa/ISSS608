@@ -45,12 +45,12 @@ pacman::p_load(ggiraph, plotly,
 ```{r}
 exam_data <- read_csv("data/Exam_data.csv")
 ```
+
 ### Overview of the data
+
 ```{r}
 exam_data
 ```
-
-
 
 ### Interactive Data Visualisation - ggiraph methods
 
@@ -353,7 +353,6 @@ Elements associated with a data_id (i.e CLASS) will be highlighted upon mouse ov
 
 -   using `opts_hover()` for effect on geometries
 -   using `opts_hover_inv` for effect on other geometries
-
 :::
 
 ::: panel-tabset
@@ -470,7 +469,7 @@ girafe(ggobj = p,
 ::: callout-note
 ## Interactivity
 
-Elements associated with a data_id (i.e CLASS) will be highlighted upon mouse over. At the same time, the tooltip will show the CLASS.
+Elements associated with a data_id (i.e CLASS) will be highlighted upon mouse over. At the same time, the tooltip will show multiple information.
 :::
 
 #### Coordinated Multiple Views
@@ -481,11 +480,16 @@ Elements associated with a data_id (i.e CLASS) will be highlighted upon mouse ov
 ```{r}
 #| echo: false
 
+# create a new field called tooltip with desired data 
+exam_data$tooltip <- c(paste0("Name = ", exam_data$ID,         
+                              "\n Class = ", exam_data$CLASS,
+                              "\n Gender = ", exam_data$GENDER)) 
+
 p1 <- ggplot(data=exam_data, 
        aes(x = MATHS)) +
   
   geom_dotplot_interactive(              
-    aes(tooltip = CLASS,
+    aes(tooltip = exam_data$tooltip,
         data_id = ID),              
     stackgroups = TRUE,                  
     binwidth = 1,                        
@@ -522,11 +526,16 @@ girafe(code = print(p1 / p2),
 ```{r}
 #| eval: false
 
+# create a new field called tooltip with desired data 
+exam_data$tooltip <- c(paste0("Name = ", exam_data$ID,         
+                              "\n Class = ", exam_data$CLASS,
+                              "\n Gender = ", exam_data$GENDER)) 
+
 p1 <- ggplot(data=exam_data, 
        aes(x = MATHS)) +
   
   geom_dotplot_interactive(              
-    aes(tooltip = CLASS,
+    aes(tooltip = exam_data$tooltip,
         data_id = ID),              
     stackgroups = TRUE,                  
     binwidth = 1,                        
@@ -555,7 +564,7 @@ girafe(code = print(p1 / p2),
        height_svg = 6,
        options = list(
          opts_hover(css = "fill: #202020;"),
-         opts_hover_inv(css = "opacity:0.2;")))
+         opts_hover_inv(css = "opacity:0.2;"))) 
 ```
 :::
 
@@ -665,10 +674,8 @@ plot_ly(data = exam_data,
 
 #### Using `ggplotly()` {#ggplotly}
 
-
 -   Appropriate ggplot2 functions are used to create a scatter plot.
 -   `ggplotly()` is used to convert the R graphic object into interactive object.
-
 
 ::: panel-tabset
 ## The plot
@@ -701,17 +708,13 @@ ggplotly(p)                                   # add this line
 ```
 :::
 
-
-
 #### Coordinated Multiple Views with `ggplotly()`
-
 
 **Three steps for creating coordinated linked plot:**
 
 1.  `highlight_key()` of plotly package is used as shared data.
 2.  two scatterplots will be created by using ggplot2 functions.
 3.  `subplot()` of plotly package is used to place them next to each other side-by-side.
-
 
 ::: panel-tabset
 ## The plot
@@ -808,8 +811,6 @@ crosstalk::bscols(gg,
                   widths = 5)        
 ```
 
-
-
 ## The code
 
 ```{r}
@@ -888,8 +889,6 @@ globalPop <- read_xls("data/GlobalPopulation.xls",
   mutate(Year = as.integer(Year))          
 ```
 
-
-
 ::: {.codebox .code data-latex="code"}
 **Things to learn from the code chunk above**
 
@@ -898,7 +897,6 @@ globalPop <- read_xls("data/GlobalPopulation.xls",
 -   [`across()`](https://dplyr.tidyverse.org/reference/across.html) apply the same functions to multiple columns
 -   [`mutate_at()`](https://dplyr.tidyverse.org/reference/mutate_all.html) convert all character data type columns into factor.
 :::
-
 
 ### Overview of the data
 
@@ -1015,11 +1013,9 @@ bp
 
 #### Using `ggplotly()`
 
-
--   Appropriate ggplot2 functions are used to create a static bubble plot. 
+-   Appropriate ggplot2 functions are used to create a static bubble plot.
 -   The output is then saved as an R object called gg.
 -   `ggplotly()` is used to convert the R graphic object into an animated svg object.
-
 
 ::: panel-tabset
 ## With legend
@@ -1076,5 +1072,3 @@ ggplotly(gg)
 -   Kam, T.S.(2023) [Programming Interactive Data Visualisation with R](https://r4va.netlify.app/chap03)
 
 -   Kam, T.S.(2023) [Programming Animated Statistical Graphics with R](https://r4va.netlify.app/chap04)
-
-

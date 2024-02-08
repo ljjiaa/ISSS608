@@ -1,0 +1,182 @@
+---
+title: "Hands-on Exercise 5"
+subtitle: "Visual Multivariate Analysis"
+date: February 7, 2024
+date-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  toc: true
+format: 
+  html:
+    code-fold: true
+editor: visual
+---
+
+## Overview
+
+Ternary plots are a way of displaying the distribution and variability of three-part compositional data. (For example, the proportion of aged, economy active and young population or sand, silt, and clay in soil.) It’s display is a triangle with sides scaled from 0 to 1. Each side represents one of the three components. A point is plotted so that a line drawn perpendicular from the point to each leg of the triangle intersect at the component values of the point.
+
+### Loading R packages
+
+::: {.focusbox .focus data-latex="focus"}
+**R packages for Ternary Diagram**\
+
+-   [**ggtern**](http://www.ggtern.com/d/2.2.0/) - ggplot extension for plotting static ternary diagrams\
+-   [**Plotly R**](https://plot.ly/r/) - R package for creating interactive web-based graphs via plotly’s JavaScript graphing library, plotly.js . The **plotly R** libary contains the *ggplotly* function, which will convert **ggplot2** figures into a Plotly object.
+:::
+
+```{r}
+pacman::p_load(plotly, ggtern, tidyverse)
+```
+
+### Data preparation
+
+For the purpose of this hands-on exercise, the [Singapore Residents by Planning AreaSubzone, Age Group, Sex and Type of Dwelling, June 2000-2018](https://www.singstat.gov.sg/find-data/search-by-theme/population/geographic-distribution/latest-data) data will be used.
+
+#### Importing data
+
+To important *respopagsex2000to2018_tidy.csv* into R, `read_csv()` function of [**readr**](https://readr.tidyverse.org/) package will be used.
+
+```{r}
+#Reading the data into R environment
+pop_data <- read_csv("data/respopagsex2000to2018_tidy.csv") 
+```
+
+Before we make any changes, let us examine the data table.
+
+::: panel-tabset
+##### First 5 rows
+
+```{r}
+head(pop_data,5)
+```
+
+##### summary
+
+```{r}
+summary(pop_data)
+```
+
+##### structure
+
+```{r}
+str(pop_data)
+```
+:::
+
+#### Preparing Data
+
+Next, use the `mutate()` function of [**dplyr**](https://dplyr.tidyverse.org/index.html) package to derive three new measures, namely: young, active, and old.
+
+```{r}
+#Deriving the young, economy active and old measures
+agpop_mutated <- pop_data %>%
+  mutate(`Year` = as.character(Year))%>%
+  pivot_wider(names_from = AG, values_from = Population) %>%
+  mutate(YOUNG = rowSums(.[4:8]))%>%
+  mutate(ACTIVE = rowSums(.[9:16]))  %>%
+  mutate(OLD = rowSums(.[17:21])) %>%
+  mutate(TOTAL = rowSums(.[22:24])) %>%
+  filter(Year == 2018)%>%
+  filter(TOTAL > 0)
+```
+
+::: {.codebox .code data-latex="code"}
+**What did code chunk above do?**
+
+-   Convert **Year** to `character`
+-   Use [`pivot_wider()`](https://tidyr.tidyverse.org/reference/pivot_wider.html) (replace `spread()`) to widens data
+-   Sum across columns using `rowSums()`
+-   Filter data for **Year** equal to 2018
+-   Filter data of value greater than 0
+:::
+
+```{r}
+#| code-fold: false
+
+agpop_mutated
+```
+
+::: callout-note
+Instead of long and thin, now the data table is fat and short!
+:::
+
+### Plotting a static ternary diagram using `ggtern()`
+
+Use `ggtern()` function of [**ggtern**](http://www.ggtern.com/d/2.2.0/) package to create a simple ternary plot.
+
+::: panel-tabset
+#### Default
+
+```{r}
+#| code-fold: false
+
+# Building the static ternary plot
+ggtern(data=agpop_mutated,aes(x=YOUNG,y=ACTIVE, z=OLD)) +
+  geom_point()
+```
+
+#### Modified
+
+```{r}
+#| code-fold: false
+
+# Building the static ternary plot
+ggtern(data=agpop_mutated, aes(x=YOUNG,y=ACTIVE, z=OLD)) +
+  geom_point() +
+  labs(title="Population structure, 2015") +
+  theme_tropical()                      # ggtern_themes
+```
+:::
+
+::: {.codebox .code data-latex="code"}
+Refer to this [link](https://search.r-project.org/CRAN/refmans/ggtern/html/ggtern_themes.html) for more ggtern themes.
+:::
+
+### Plotting an interative ternary diagram using `plot_ly()`
+
+The code below create an interactive ternary plot using `plot_ly()` function of [**Plotly R**](https://plot.ly/r/).
+
+```{r}
+# reusable function for creating annotation object
+label <- function(txt) {
+  list(
+    text = txt, 
+    x = 0.1, y = 1,
+    ax = 0, ay = 0,
+    xref = "paper", yref = "paper", 
+    align = "center",
+    font = list(family = "serif", size = 15, color = "white"),
+    bgcolor = "#b3b3b3", bordercolor = "black", borderwidth = 2
+  )
+}
+
+# reusable function for axis formatting
+axis <- function(txt) {
+  list(
+    title = txt, tickformat = ".0%", tickfont = list(size = 10)
+  )
+}
+
+ternaryAxes <- list(
+  aaxis = axis("Young"), 
+  baxis = axis("Active"), 
+  caxis = axis("Old")
+)
+
+# Initiating a plotly visualization 
+plot_ly(
+  agpop_mutated, 
+  a = ~YOUNG, 
+  b = ~ACTIVE, 
+  c = ~OLD, 
+  color = I("lightblue"), 
+  type = "scatterternary"
+) %>%
+  layout(
+    annotations = label("Ternary Markers"), 
+    ternary = ternaryAxes
+  )
+```

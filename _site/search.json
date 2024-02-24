@@ -544,5 +544,26 @@
     "title": "Hands-on Exercise 6",
     "section": "6 Plotting horizon chart",
     "text": "6 Plotting horizon chart\nA horizon graph is an analytical graphical method specially designed for visualising large numbers of time-series. It aims to overcome the issue of visualising highly overlapping time-series as shown in the figure below.\nA horizon graph essentially an area chart that has been split into slices and the slices then layered on top of one another with the areas representing the highest (absolute) values on top. Each slice has a greater intensity of colour based on the absolute value it represents.\nIn this section, we will learn how to plot a horizon graph by using ggHoriPlot package.Refer to this link to learn more about the functions of ggHoriPlot package. Next, read geom_horizon() to learn more about the usage of its arguments. :::\n\n6.1 Data Import\nFor the purpose of this hands-on exercise, Average Retail Prices Of Selected Consumer Items will be used.\nUse the code chunk below to import the AVERP.csv file into R environment.\n\naverp &lt;- read_csv(\"data/AVERP.csv\") %&gt;%\n  mutate(`Date` = dmy(`Date`))\n\nRows: 7452 Columns: 3\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (2): Date, Consumer Items\ndbl (1): Values\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\nNext, we examine the first 5 row of data table using head()\n\nhead(averp,5)\n\n# A tibble: 5 × 3\n  Date       `Consumer Items`               Values\n  &lt;date&gt;     &lt;chr&gt;                           &lt;dbl&gt;\n1 2014-01-01 Wholemeal Bread (Per 400 Gram)   2.05\n2 2014-02-01 Wholemeal Bread (Per 400 Gram)   2.05\n3 2014-03-01 Wholemeal Bread (Per 400 Gram)   2.04\n4 2014-04-01 Wholemeal Bread (Per 400 Gram)   2.04\n5 2014-05-01 Wholemeal Bread (Per 400 Gram)   2.05\n\n\n\nThing to learn from the code chunk above\n\nBy default, read_csv will import data in Date field as Character data type. dmy() of lubridate package to palse the Date field into appropriate Date data type in R.\n\n\n\n\n\n6.2 Plotting the horizon graph\n\naverp %&gt;% \n  filter(Date &gt;= \"2018-01-01\") %&gt;%\n  ggplot() +\n  geom_horizon(aes(x = Date, y=Values), \n               origin = \"midpoint\", \n               horizonscale = 6)+\n  facet_grid(`Consumer Items`~.) +\n    theme_few() +\n  scale_fill_hcl(palette = 'YlOrBr') +      #run colorspace::hcl_palettes() to list avai palettes\n  theme(panel.spacing.y=unit(0, \"lines\"), \n        strip.text.y = element_text(\n    size = 6, angle = 0, hjust = 0),\n    legend.position = 'none',\n    axis.text.y = element_blank(),\n    axis.text.x = element_text(size=8),\n    axis.title.y = element_blank(),\n    axis.title.x = element_blank(),\n    axis.ticks.y = element_blank(),\n    panel.border = element_blank()\n    ) +\n    scale_x_date(expand=c(0,0), \n                 date_breaks = \"6 month\", \n                 date_labels = \"%b%y\") +\n  ggtitle('Average Retail Prices of Selected Consumer Items (Jan 2018 to Dec 2022)')"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex6/In-class_Ex6.html",
+    "href": "In-class_Ex/In-class_Ex6/In-class_Ex6.html",
+    "title": "Horizon Plot",
+    "section": "",
+    "text": "pacman::p_load(ggHoriPlot, ggthemes, tidyverse)"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex6/In-class_Ex6.html#installing-and-launching-r-packages",
+    "href": "In-class_Ex/In-class_Ex6/In-class_Ex6.html#installing-and-launching-r-packages",
+    "title": "Horizon Plot",
+    "section": "",
+    "text": "pacman::p_load(ggHoriPlot, ggthemes, tidyverse)"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex6/In-class_Ex6.html#importing-the-data",
+    "href": "In-class_Ex/In-class_Ex6/In-class_Ex6.html#importing-the-data",
+    "title": "Horizon Plot",
+    "section": "2 Importing the data",
+    "text": "2 Importing the data\n\naverp &lt;- read_csv(\"data/AVERP.csv\") %&gt;%\n  mutate(`Date` = dmy(`Date`))\n\n\nWhat do the code chunk above do?\n\nimport csv data file\nconvert date column from ‘chr’ to ‘date’\n\n\n\naverp %&gt;% \n  filter(Date &gt;= \"2018-01-01\") %&gt;%\n  ggplot() +\n  geom_horizon(aes(x = Date, y=Values), \n               origin = \"midpoint\", \n               horizonscale = 6)+\n  facet_grid(`Consumer Items`~.) +\n    theme_few() +\n  scale_fill_hcl(palette = 'RdBu') +\n  theme(panel.spacing.y=unit(0, \"lines\"), strip.text.y = element_text(\n    size = 5, angle = 0, hjust = 0),\n    legend.position = 'none',\n    axis.text.y = element_blank(),\n    axis.text.x = element_text(size=7),\n    axis.title.y = element_blank(),\n    axis.title.x = element_blank(),\n    axis.ticks.y = element_blank(),\n    panel.border = element_blank()\n    ) +\n    scale_x_date(expand=c(0,0), date_breaks = \"3 month\", date_labels = \"%b%y\") +\n  ggtitle('Average Retail Prices of Selected Consumer Items (Jan 2018 to Dec 2022)')\n\n\n\n\n\n\nif the data consists of negative & positive values, use diverging colour\nif there is only intensity, use only one colour"
   }
 ]

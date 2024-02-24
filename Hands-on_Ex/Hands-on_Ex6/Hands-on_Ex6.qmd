@@ -46,7 +46,6 @@ First, the code chunk below is used to import *eventlog.csv* file into R environ
 attacks <- read_csv("data/eventlog.csv")
 ```
 
-
 ### Examining the data structure
 
 `kable()` can be used to review the structure of the imported data frame.
@@ -61,12 +60,11 @@ There are three columns, namely ***timestamp***, ***source_country*** and ***tz*
 -   *source_country* field stores the source of the attack. It is in *ISO 3166-1 alpha-2* country code.\
 -   *tz* field stores time zone of the source IP address.
 
-
 ### Data Preparation
 
 **Step 1**: Deriving *weekday* and *hour of day* fields
 
-Before we can plot the calender heatmap, two new fields namely *wkday* and *hour* need to be derived. 
+Before we can plot the calender heatmap, two new fields namely *wkday* and *hour* need to be derived.
 
 ```{r}
 make_hr_wkday <- function(ts, sc, tz) {
@@ -79,8 +77,6 @@ make_hr_wkday <- function(ts, sc, tz) {
   return(dt)
   }
 ```
-
-
 
 ::: {.codebox .code data-latex="code"}
 -   [`ymd_hms()`](https://lubridate.tidyverse.org/reference/ymd_hms.html) and [`hour()`](https://lubridate.tidyverse.org/reference/hour.html) are from [**lubridate**](https://lubridate.tidyverse.org/) package, and
@@ -117,13 +113,9 @@ Table below shows the tidy tibble table after processing.
 kable(head(attacks))
 ```
 
-
-
-
 ### Plotting the Calendar Heatmaps
 
 Before plotting the heatmaps, the following code is used to count the total number of attacks on a particular hour and weekday:
-
 
 ```{r}
 grouped <- attacks %>% 
@@ -133,10 +125,10 @@ grouped <- attacks %>%
 ```
 
 Let us examine the data frame.
+
 ```{r}
 kable(head(grouped))
 ```
-
 
 ```{r}
 ggplot(grouped, 
@@ -160,9 +152,6 @@ theme(axis.ticks = element_blank(),
       legend.text = element_text(size = 6) )
 ```
 
-
-
-
 ::: {.codebox .code data-latex="code"}
 **Things to learn from the code chunk**
 
@@ -174,7 +163,6 @@ theme(axis.ticks = element_blank(),
 -   `coord_equal()` is used to ensure the plot will have an aspect ratio of 1:1.
 -   `scale_fill_gradient()` function is used to creates a two colour gradient (low-high).
 :::
-
 
 ### Plotting Multiple Calendar Heatmaps
 
@@ -195,11 +183,9 @@ attacks_by_country <- count(
   arrange(desc(n))
 ```
 
-
 ```{r}
 kable(head(attacks_by_country))
 ```
-
 
 **Step 2**: Preparing the tidy data frame
 
@@ -216,12 +202,9 @@ top4_attacks <- attacks %>%
   na.omit()
 ```
 
-
-
 ```{r}
 kable(head(top4_attacks))
 ```
-
 
 **Step 3**: Plotting the Multiple Calender Heatmap by using ggplot2 package.
 
@@ -263,10 +246,12 @@ The code chunk below imports *arrivals_by_air.xlsx* by using `read_excel()` of *
 air <- read_excel("data/arrivals_by_air.xlsx")
 ```
 
-After importing, we examine the first 5 row of the data by using  `head()`.
+After importing, we examine the first 5 row of the data by using `head()`.
+
 ```{r}
 head(air,5)
 ```
+
 ### Data Preparation
 
 **Step 1**: Deriving month and year fields
@@ -334,7 +319,6 @@ ggplot() +
         strip.text = element_text(colour = "white"))
 ```
 
-
 ## Plotting Slopegraph {#Section3}
 
 In this section we will learn how to plot a [slopegraph](https://www.storytellingwithdata.com/blog/2020/7/27/what-is-a-slopegraph) by using **CGPfunctions**.Refer to [Using newggslopegraph](https://cran.r-project.org/web/packages/CGPfunctions/vignettes/Using-newggslopegraph.html) to learn more about the function and read more about `newggslopegraph()` and [arguments](https://www.rdocumentation.org/packages/CGPfunctions/versions/0.6.3/topics/newggslopegraph).
@@ -352,13 +336,13 @@ rice <- read_csv("data/rice.csv")
 kable(head(rice))
 ```
 
-
 ### Plotting the slopegraph
 
 The following code chunk will be used to plot a slopegraph.
 
 ::: panel-tabset
 #### Default
+
 ```{r}
 #| fig-height: 8
 rice %>% 
@@ -371,6 +355,7 @@ rice %>%
 ```
 
 #### Changing line colour
+
 ```{r}
 #| fig-height: 8
 rice %>% 
@@ -385,6 +370,7 @@ rice %>%
 ```
 
 #### Highlighting line colour
+
 ```{r}
 #| fig-height: 8
 rice %>% 
@@ -412,8 +398,7 @@ A horizon graph is an analytical graphical method specially designed for visuali
 
 A horizon graph essentially an area chart that has been split into slices and the slices then layered on top of one another with the areas representing the highest (absolute) values on top. Each slice has a greater intensity of colour based on the absolute value it represents.
 
-In this section, we will learn how to plot a [horizon graph](http://www.perceptualedge.com/articles/visual_business_intelligence/time_on_the_horizon.pdf) by using [**ggHoriPlot**](https://rivasiker.github.io/ggHoriPlot/index.html) package.Refer to this [link](https://rivasiker.github.io/ggHoriPlot/articles/ggHoriPlot.html) to learn more about the functions of ggHoriPlot package. Next, read [`geom_horizon()`](https://rivasiker.github.io/ggHoriPlot/reference/geom_horizon.html) to learn more about the usage of its arguments.
-:::
+In this section, we will learn how to plot a [horizon graph](http://www.perceptualedge.com/articles/visual_business_intelligence/time_on_the_horizon.pdf) by using [**ggHoriPlot**](https://rivasiker.github.io/ggHoriPlot/index.html) package.Refer to this [link](https://rivasiker.github.io/ggHoriPlot/articles/ggHoriPlot.html) to learn more about the functions of ggHoriPlot package. Next, read [`geom_horizon()`](https://rivasiker.github.io/ggHoriPlot/reference/geom_horizon.html) to learn more about the usage of its arguments. :::
 
 ### Data Import
 
@@ -428,17 +413,16 @@ averp <- read_csv("data/AVERP.csv") %>%
 ```
 
 Next, we examine the first 5 row of data table using `head()`
+
 ```{r}
 head(averp,5)
 ```
-
 
 ::: {.codebox .code data-latex="code"}
 **Thing to learn from the code chunk above**
 
 -   By default, read_csv will import data in Date field as Character data type. [`dmy()`](https://lubridate.tidyverse.org/reference/ymd.html) of [**lubridate**](https://lubridate.tidyverse.org/index.html) package to palse the Date field into appropriate Date data type in R.\
 :::
-
 
 ### Plotting the horizon graph
 

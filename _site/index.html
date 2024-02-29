@@ -30,6 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./favicon.ico" rel="icon">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -59,7 +61,38 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-date','listing-title','listing-author','listing-subtitle','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -127,8 +160,16 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">Hands-on Exercise 6</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex7/Hands-on_Ex7.html" rel="" target="">
- <span class="dropdown-text">Hands-on Exercise 7</span></a>
+    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex7/Hands-on_Ex7a.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 7a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex7/Hands-on_Ex7b.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 7b</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex7/Hands-on_Ex7c.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 7c</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex8/Hands-on_Ex8.html" rel="" target="">
@@ -184,10 +225,6 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link active" href="./index.html" rel="" target="" aria-current="page">
  <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
- <span class="menu-text">About</span></a>
-  </li>  
 </ul>
             <div class="quarto-navbar-tools">
 </div>
@@ -226,7 +263,470 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1709049600000" data-listing-file-modified-sort="1709224840303" data-listing-date-modified-sort="1709224840000" data-listing-reading-time-sort="18">
+<div class="thumbnail">
+<p><a href="./Hands-on_Ex/Hands-on_Ex7/Hands-on_Ex7a.html"> <p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex7\Hands-on_Ex7a_files\figure-html\unnamed-chunk-9-1.png"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./Hands-on_Ex/Hands-on_Ex7/Hands-on_Ex7a.html">
+<h3 class="no-anchor listing-title">
+Hands-on Exercise 7a
+</h3>
+<div class="listing-subtitle">
+Choropleth Mapping with R
+</div>
+<div class="listing-description">
+Choropleth mapping involves the symbolisation of enumeration units, such as countries, provinces, states, counties or census units, using area patterns or graduated…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Hands-on_Ex/Hands-on_Ex7/Hands-on_Ex7a.html">
+<div class="listing-date">
+Feb 28, 2024
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1709049600000" data-listing-file-modified-sort="1709226352346" data-listing-date-modified-sort="1709226352000" data-listing-reading-time-sort="5">
+<div class="thumbnail">
+<p><a href="./Hands-on_Ex/Hands-on_Ex7/Hands-on_Ex7b.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
+</div>
+<div class="body">
+<a href="./Hands-on_Ex/Hands-on_Ex7/Hands-on_Ex7b.html">
+<h3 class="no-anchor listing-title">
+Hands-on Exercise 7b
+</h3>
+<div class="listing-subtitle">
+Visualising Geospatial Point Data
+</div>
+<div class="listing-description">
+Proportional symbol maps (also known as graduate symbol maps) are a class of maps that use the visual variable of size to represent differences in the magnitude of a…<strong></strong>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Hands-on_Ex/Hands-on_Ex7/Hands-on_Ex7b.html">
+<div class="listing-date">
+Feb 28, 2024
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1709049600000" data-listing-file-modified-sort="1709229479496" data-listing-date-modified-sort="1709229479000" data-listing-reading-time-sort="10">
+<div class="thumbnail">
+<p><a href="./Hands-on_Ex/Hands-on_Ex7/Hands-on_Ex7c.html"> <p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex7\Hands-on_Ex7c_files\figure-html\unnamed-chunk-4-1.png"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./Hands-on_Ex/Hands-on_Ex7/Hands-on_Ex7c.html">
+<h3 class="no-anchor listing-title">
+Hands-on Exercise 7c
+</h3>
+<div class="listing-subtitle">
+Analytical Mapping
+</div>
+<div class="listing-description">
+In this in-class exercise, we will gain hands-on experience on using appropriate R methods to plot analytical maps.
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Hands-on_Ex/Hands-on_Ex7/Hands-on_Ex7c.html">
+<div class="listing-date">
+Feb 28, 2024
+</div>
+<div class="listing-author">
+Lim Jia Jia
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-listing-date-sort="1708704000000" data-listing-file-modified-sort="1709230079836" data-listing-date-modified-sort="1709230079000" data-listing-reading-time-sort="2">
+<div class="thumbnail">
+<p><a href="./In-class_Ex/In-class_Ex6/In-class_Ex6.html"> <p class="card-img-top"><img src="In-class_Ex\In-class_Ex6\In-class_Ex6_files\figure-html\unnamed-chunk-3-1.png"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./In-class_Ex/In-class_Ex6/In-class_Ex6.html">
+<h3 class="no-anchor listing-title">
+In-class Exercise 6: Horizon Plot
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+<strong>What do the code chunk above do?</strong>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./In-class_Ex/In-class_Ex6/In-class_Ex6.html">
+<div class="listing-date">
+Feb 24, 2024
+</div>
+<div class="listing-author">
+Lim Jia Jia
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-listing-date-sort="1708358400000" data-listing-file-modified-sort="1708761300216" data-listing-date-modified-sort="1708761300000" data-listing-reading-time-sort="14">
+<div class="thumbnail">
+<p><a href="./Hands-on_Ex/Hands-on_Ex6/Hands-on_Ex6.html"> <p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex6\Hands-on_Ex6_files\figure-html\unnamed-chunk-9-1.png"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./Hands-on_Ex/Hands-on_Ex6/Hands-on_Ex6.html">
+<h3 class="no-anchor listing-title">
+Hands-on Exercise 6
+</h3>
+<div class="listing-subtitle">
+Visualising and Analysing Time-oriented Data
+</div>
+<div class="listing-description">
+In this hands-on exercise, we learn to create the followings data visualisation by using R packages:
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Hands-on_Ex/Hands-on_Ex6/Hands-on_Ex6.html">
+<div class="listing-date">
+Feb 20, 2024
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="5" data-listing-date-sort="1707926400000" data-listing-file-modified-sort="1708271209204" data-listing-date-modified-sort="1708271209000" data-listing-reading-time-sort="14">
+<div class="thumbnail">
+<p><a href="./Take-home_Ex/Take-home_Ex3/Take-home_Ex3.html"> <p class="card-img-top"><img src="Take-home_Ex\Take-home_Ex3\Climate_change.jpg"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./Take-home_Ex/Take-home_Ex3/Take-home_Ex3.html">
+<h3 class="no-anchor listing-title">
+Take-home Exercise 3
+</h3>
+<div class="listing-subtitle">
+Be Weatherwise or Otherwise
+</div>
+<div class="listing-description">
+According to an office report as shown in the infographic below, daily mean temperature are projected to…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Take-home_Ex/Take-home_Ex3/Take-home_Ex3.html">
+<div class="listing-date">
+Feb 15, 2024
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-listing-date-sort="1707321600000" data-listing-file-modified-sort="1707401031948" data-listing-date-modified-sort="1707401031000" data-listing-reading-time-sort="13">
+<div class="thumbnail">
+<p><a href="./Hands-on_Ex/Hands-on_Ex5/Hands-on_Ex5c.html"> <p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex5\Hands-on_Ex5c_files\figure-html\unnamed-chunk-6-1.png"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./Hands-on_Ex/Hands-on_Ex5/Hands-on_Ex5c.html">
+<h3 class="no-anchor listing-title">
+Hands-on Exercise 5c
+</h3>
+<div class="listing-subtitle">
+Heatmap for Visualising and Analysing Multivariate Data
+</div>
+<div class="listing-description">
+Heatmaps visualise data through variations in colouring. When applied to a tabular format…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Hands-on_Ex/Hands-on_Ex5/Hands-on_Ex5c.html">
+<div class="listing-date">
+Feb 8, 2024
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="7" data-listing-date-sort="1707321600000" data-listing-file-modified-sort="1707412980750" data-listing-date-modified-sort="1707412980000" data-listing-reading-time-sort="6">
+<div class="thumbnail">
+<p><a href="./Hands-on_Ex/Hands-on_Ex5/Hands-on_Ex5d.html"> <p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex5\Hands-on_Ex5d_files\figure-html\unnamed-chunk-3-1.png"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./Hands-on_Ex/Hands-on_Ex5/Hands-on_Ex5d.html">
+<h3 class="no-anchor listing-title">
+Hands-on Exercise 5d
+</h3>
+<div class="listing-subtitle">
+Visual Multivariate Analysis with Parallel Coordinates Plot
+</div>
+<div class="listing-description">
+Parallel coordinates plot is a data…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Hands-on_Ex/Hands-on_Ex5/Hands-on_Ex5d.html">
+<div class="listing-date">
+Feb 8, 2024
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="8" data-listing-date-sort="1707321600000" data-listing-file-modified-sort="1707414483173" data-listing-date-modified-sort="1707414483000" data-listing-reading-time-sort="15">
+<div class="thumbnail">
+<p><a href="./Hands-on_Ex/Hands-on_Ex5/Hands-on_Ex5e.html"> <p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex5\Hands-on_Ex5e_files\figure-html\unnamed-chunk-7-1.png"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./Hands-on_Ex/Hands-on_Ex5/Hands-on_Ex5e.html">
+<h3 class="no-anchor listing-title">
+Hands-on Exercise 5e
+</h3>
+<div class="listing-subtitle">
+Treemap Visualisation with R
+</div>
+<div class="listing-description">
+In this hands-on exercise, we learn to design treemap using appropriate R packages. The hands-on exercise consists of three main section:
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Hands-on_Ex/Hands-on_Ex5/Hands-on_Ex5e.html">
+<div class="listing-date">
+Feb 8, 2024
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="9" data-listing-date-sort="1707235200000" data-listing-file-modified-sort="1707409210571" data-listing-date-modified-sort="1707409210000" data-listing-reading-time-sort="4">
+<div class="thumbnail">
+<p><a href="./Hands-on_Ex/Hands-on_Ex5/Hands-on_Ex5a.html"> <p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex5\Hands-on_Ex5a_files\figure-html\unnamed-chunk-8-1.png"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./Hands-on_Ex/Hands-on_Ex5/Hands-on_Ex5a.html">
+<h3 class="no-anchor listing-title">
+Hands-on Exercise 5
+</h3>
+<div class="listing-subtitle">
+Visual Multivariate Analysis
+</div>
+<div class="listing-description">
+Ternary plots are a way of displaying the distribution and variability of three-part compositional data. (For example, the proportion of aged, economy active and young…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Hands-on_Ex/Hands-on_Ex5/Hands-on_Ex5a.html">
+<div class="listing-date">
+Feb 7, 2024
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="10" data-listing-date-sort="1707235200000" data-listing-file-modified-sort="1707409216359" data-listing-date-modified-sort="1707409216000" data-listing-reading-time-sort="10">
+<div class="thumbnail">
+<p><a href="./Hands-on_Ex/Hands-on_Ex5/Hands-on_Ex5b.html"> <p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex5\Hands-on_Ex5b_files\figure-html\unnamed-chunk-5-1.png"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./Hands-on_Ex/Hands-on_Ex5/Hands-on_Ex5b.html">
+<h3 class="no-anchor listing-title">
+Hands-on Exercise 5b
+</h3>
+<div class="listing-subtitle">
+Visual Correlation Analysis
+</div>
+<div class="listing-description">
+Correlation coefficient is a popular statistic that use to…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Hands-on_Ex/Hands-on_Ex5/Hands-on_Ex5b.html">
+<div class="listing-date">
+Feb 7, 2024
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="11" data-listing-date-sort="1706630400000" data-listing-file-modified-sort="1706845976297" data-listing-date-modified-sort="1706845976000" data-listing-reading-time-sort="26">
+<div class="thumbnail">
+<p><a href="./Hands-on_Ex/Hands-on_Ex4/Hands-on_Ex4.html"> <p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex4\Hands-on_Ex4_files\figure-html\unnamed-chunk-3-1.png"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./Hands-on_Ex/Hands-on_Ex4/Hands-on_Ex4.html">
+<h3 class="no-anchor listing-title">
+Hands-on Exercise 4
+</h3>
+<div class="listing-subtitle">
+Fundamentals of Visual Analytics
+</div>
+<div class="listing-description">
+<span style="font-size: 20px; font-weight: bold;">Summary</span>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Hands-on_Ex/Hands-on_Ex4/Hands-on_Ex4.html">
+<div class="listing-date">
+Jan 31, 2024
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="12" data-listing-date-sort="1706025600000" data-listing-file-modified-sort="1706455497346" data-listing-date-modified-sort="1706455497000" data-listing-reading-time-sort="27">
+<div class="thumbnail">
+<p><a href="./Take-home_Ex/Take-home_Ex2/Take-home_Ex2.html"> <p class="card-img-top"><img src="Take-home_Ex\Take-home_Ex2\Images\Plot_1.png"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./Take-home_Ex/Take-home_Ex2/Take-home_Ex2.html">
+<h3 class="no-anchor listing-title">
+Take-home Exercise 2
+</h3>
+<div class="listing-subtitle">
+DataVis Makeover
+</div>
+<div class="listing-description">
+The aim of this exercise is to perform a makeover to improve the original visualisation completed by one of the classmates on exercise 1. In terms of the makeover, our…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Take-home_Ex/Take-home_Ex2/Take-home_Ex2.html">
+<div class="listing-date">
+Jan 24, 2024
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="13" data-listing-date-sort="1705939200000" data-listing-file-modified-sort="1707293371945" data-listing-date-modified-sort="1707293371000" data-listing-reading-time-sort="44">
+<div class="thumbnail">
+<p><a href="./Hands-on_Ex/Hands-on_Ex3/Hands-on_Ex3.html"> <p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex3\Hands-on_Ex3_files\figure-html\unnamed-chunk-35-1.png"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./Hands-on_Ex/Hands-on_Ex3/Hands-on_Ex3.html">
+<h3 class="no-anchor listing-title">
+Hands-on Exercise 3
+</h3>
+<div class="listing-subtitle">
+Programming Interactive Data Visualisation and Animated Statistical Graphics with R
+</div>
+<div class="listing-description">
+<span style="font-size: 20px; font-weight: bold;">Summary</span>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Hands-on_Ex/Hands-on_Ex3/Hands-on_Ex3.html">
+<div class="listing-date">
+Jan 23, 2024
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="14" data-listing-date-sort="1705420800000" data-listing-file-modified-sort="1706022797846" data-listing-date-modified-sort="1706022797000" data-listing-reading-time-sort="30">
+<div class="thumbnail">
+<p><a href="./Take-home_Ex/Take-home_Ex1/Take-home_Ex1.html"> <p class="card-img-top"><img src="Take-home_Ex\Take-home_Ex1\Take-home_Ex1_files\figure-html\unnamed-chunk-14-1.png"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./Take-home_Ex/Take-home_Ex1/Take-home_Ex1.html">
+<h3 class="no-anchor listing-title">
+Take-home Exercise 1
+</h3>
+<div class="listing-subtitle">
+Creating data visualisation beyond default
+</div>
+<div class="listing-description">
+OECD education director Andreas Schleicher shared in a BBC article that “Singapore managed to achieve excellence without wide differences between children from wealthy and…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Take-home_Ex/Take-home_Ex1/Take-home_Ex1.html">
+<div class="listing-date">
+Jan 17, 2024
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="15" data-listing-date-sort="1705248000000" data-listing-file-modified-sort="1705929567222" data-listing-date-modified-sort="1705929567000" data-listing-reading-time-sort="8">
+<div class="thumbnail">
+<p><a href="./Hands-on_Ex/Hands-on_Ex2/Hands-on_Ex2.html"> <p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex2\Hands-on_Ex2_files\figure-html\unnamed-chunk-3-1.png"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./Hands-on_Ex/Hands-on_Ex2/Hands-on_Ex2.html">
+<h3 class="no-anchor listing-title">
+Hands-on Exercise 2
+</h3>
+<div class="listing-subtitle">
+Beyond ggplot2 Fundamentals
+</div>
+<div class="listing-description">
+ggrepel provides geoms for ggplot2 to repel overlapping text labels:
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Hands-on_Ex/Hands-on_Ex2/Hands-on_Ex2.html">
+<div class="listing-date">
+Jan 15, 2024
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="16" data-listing-date-sort="1705075200000" data-listing-file-modified-sort="1705484218416" data-listing-date-modified-sort="1705484218000" data-listing-reading-time-sort="1">
+<div class="thumbnail">
+<p><a href="./In-class_Ex/In-class_Ex1/In-class_Ex1.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
+</div>
+<div class="body">
+<a href="./In-class_Ex/In-class_Ex1/In-class_Ex1.html">
+<h3 class="no-anchor listing-title">
+In-class Exercise 1: Now You See It!
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+In this hands-on exercise, two R packages will be used. They are:
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./In-class_Ex/In-class_Ex1/In-class_Ex1.html">
+<div class="listing-date">
+Jan 13, 2024
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="17" data-listing-date-sort="1704038400000" data-listing-file-modified-sort="1705655781855" data-listing-date-modified-sort="1705655781000" data-listing-reading-time-sort="11">
+<div class="thumbnail">
+<p><a href="./Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html"> <p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex1\Grammar of graphics.png"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html">
+<h3 class="no-anchor listing-title">
+Hands-on Exercise 1
+</h3>
+<div class="listing-subtitle">
+A Layered Grammar of Graphics: ggplot2 methods
+</div>
+<div class="listing-description">
+First, load R packages using the below code:
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Hands-on_Ex/Hands-on_Ex1/Hands-on_Ex1.html">
+<div class="listing-date">
+Jan 1, 2024
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

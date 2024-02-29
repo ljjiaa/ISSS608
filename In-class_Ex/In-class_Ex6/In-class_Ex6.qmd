@@ -1,12 +1,11 @@
 ---
-title: "Horizon Plot"
+title: "In-class Exercise 6: Horizon Plot"
 author: "Lim Jia Jia"
 date: "February 24, 2024"
 date-modified: "last-modified"
 execute: 
   eval: true
   echo: true
-  freeze: true
   message: false
   warning: false
 ---
@@ -18,6 +17,7 @@ pacman::p_load(ggHoriPlot, ggthemes, tidyverse)
 ```
 
 ## Importing the data
+
 ```{r}
 averp <- read_csv("data/AVERP.csv") %>%
   mutate(`Date` = dmy(`Date`))
@@ -28,9 +28,7 @@ averp <- read_csv("data/AVERP.csv") %>%
 
 -   import csv data file
 -   convert date column from 'chr' to 'date'
-
 :::
-
 
 ```{r}
 #| fig-width: 12
@@ -61,7 +59,5 @@ averp %>%
 
 ::: {.focusbox .focus data-latex="focus"}
 -   if the data consists of negative & positive values, use diverging colour
--   if there is only intensity, use only one colour 
+-   if there is only intensity, use only one colour
 :::
-
-

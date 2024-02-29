@@ -1,5 +1,8 @@
 ---
 title: "ISSS608-VAA"
+listing:
+  type: default
+  sort: "date desc"
 ---
 
 Welcome to my **ISSS608 Visual Analytics and Applications** learning space

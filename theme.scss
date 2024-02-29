@@ -1,0 +1,138 @@
+/*-- scss:defaults --*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+// Colors
+
+
+
+$white:#FFFFFF;
+$beige: #e1d0bc;
+$dark-brown: #654321;
+$greyish-brown: #403B2F;
+$greyish-brown1: #544d4d;
+$light-beige: #F6F3EE;
+$eggshell: #F8F3E6;
+$beige2: #c0b8ab;
+$beige1: #ebebe6;
+$beige3: #999999;
+$beige4: #f6f5f5;
+$green: #798a5a;
+$orange: #f5bc5f;
+
+$sprinkledcream-beige: #D7B7A3;
+$sprinkledcream-reddishbrown: #985E49;
+$sprinkledcream-darkbrown: #432D27;
+$sprinkledcream-offwhite: #EAE7E7;
+$sprinkledcream-pink: #C6978E;
+
+// Base document colors
+$body-bg: $white; // page background 
+$body-color: $greyish-brown; // page text 
+$footer-bg: $eggshell; // footer 
+$link-color: $sprinkledcream-pink; // hyperlinks 
+$code-block-bg: $beige4; // code block
+
+// nav bar
+$navbar-bg: $sprinkledcream-offwhite; // navbar
+$navbar-fg: $sprinkledcream-darkbrown; // navbar foreground elements
+$navbar-hl: $sprinkledcream-pink; // highlight color when hovering over navbar links
+$navbar-font-size: 16px;
+$dropdown-link-color: $greyish-brown1;
+$dropdown-link-active-color: $greyish-brown1;
+$dropdown-link-active-bg: $sprinkledcream-pink;
+
+// fonts
+$font-family: 'Roboto', sans-serif;
+
+//toc 
+$toc-font-size: 12px;
+$toc-active-border: $sprinkledcream-reddishbrown;
+
+// callouts
+$callout-color-note: $sprinkledcream-reddishbrown;
+$callout-color-tip: $green;
+$callout-color-caution: $orange;
+$callout-color-important: $sprinkledcream-pink;
+
+
+
+/*-- scss:rules --*/
+
+
+.title {
+  margin-top: 2em !important;
+  margin-bottom: 1.5em;
+  font-size: 36px;
+  font-weight: 700;
+  color: $sprinkledcream-darkbrown; 
+}
+
+.subtitle {
+  font-size: 20px;
+  font-family: $font-family;
+}
+
+nav {
+  font-size: $navbar-font-size;
+}
+
+body {
+  font-size: 14px;
+  font-family: $font-family;
+}
+
+.left {
+  text-align: left;
+  padding-left: 1em;
+}
+.right {
+  text-align: right;
+  padding-right: 1em;
+}
+
+
+/* Heading 1 */
+h1 {
+  font-size: 30px;
+  font-variant: normal; 
+  font-weight: 600; 
+}
+
+/* Heading 2 */
+h2 {
+  font-size: 28px;
+  font-variant: normal; 
+  font-weight: 500; 
+  border-bottom: 2.5px solid $beige1; 
+}
+
+/* Heading 3 */
+h3 {
+  font-size: 24px;
+  font-variant: normal; 
+  font-weight: 500; 
+}
+
+/* Heading 4 */
+h4 {
+  font-size: 20px;
+  font-variant: normal; 
+  font-weight: 500; 
+}
+
+/* Heading 5 */
+h5 {
+  font-size: 18px;
+  font-variant: italic; 
+  font-weight: 500; 
+}
+
+.navbar-text {
+  font-size: 28px;
+  font-variant: italic; 
+  font-weight: 500; 
+}
+
+.callout.callout-style-default .callout-body {
+  font-size: 0.75rem;
+}

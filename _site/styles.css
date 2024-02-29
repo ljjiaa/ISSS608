@@ -1,17 +1,13 @@
 /* css styles */
 
-html {
-    zoom: 0.95; 
-}
-
 
 .focusbox {
   padding: 1.2em 2em 0.8em 4.5em;
   margin-top: 30px;
   margin-bottom: 10px;
-  border: 3px solid #e1d0bc;
+  border: 2.5px solid #e1d0bc;
   border-radius: 15px;
-  font-size: 15px;
+  font-size: 0.95em;
   background: #FFFFFF 15px center/3em no-repeat;
 }
 
@@ -25,9 +21,9 @@ html {
   padding: 1.2em 2em 0.8em 4.5em;
   margin-top: 30px;
   margin-bottom: 10px;
-  border: 3px dashed #e1d0bc;
+  border: 2.5px dashed #e1d0bc;
   border-radius: 20px;
-  font-size: 15px;
+  font-size: 0.95em;
   background: #FFFFFF 15px 15px/2.5em no-repeat;
 }
 
@@ -39,9 +35,9 @@ html {
   padding: 1.2em 2em 0.8em 4.5em;
   margin-top: 30px;
   margin-bottom: 10px;
-  border: 3px dashed #e1d0bc;
+  border: 2.5px dashed #e1d0bc;
   border-radius: 15px;
-  font-size: 15px;
+  font-size: 0.95em;
   background: #FFFFFF 15px center/2.5em no-repeat;
 }
 

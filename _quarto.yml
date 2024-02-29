@@ -37,9 +37,15 @@ website:
           - text: Hands-on Exercise 6
             href: Hands-on_Ex/Hands-on_Ex6/Hands-on_Ex6.html     
                         
-          - text: Hands-on Exercise 7
-            href: Hands-on_Ex/Hands-on_Ex7/Hands-on_Ex7.html     
-                        
+          - text: Hands-on Exercise 7a
+            href: Hands-on_Ex/Hands-on_Ex7/Hands-on_Ex7a.html 
+            
+          - text: Hands-on Exercise 7b
+            href: Hands-on_Ex/Hands-on_Ex7/Hands-on_Ex7b.html 
+            
+          - text: Hands-on Exercise 7c
+            href: Hands-on_Ex/Hands-on_Ex7/Hands-on_Ex7c.html 
+            
           - text: Hands-on Exercise 8
             href: Hands-on_Ex/Hands-on_Ex8/Hands-on_Ex8.html      
             
@@ -71,25 +77,25 @@ website:
     right:
       - href: index.qmd
         text: Home
-      - about.qmd
     pinned: true
   back-to-top-navigation: true
   favicon: favicon.ico
 
+
 format:
   html:
     theme: 
-      - Lumen
-      - custom.scss
+      - theme.scss
     css: styles.css
     toc: true
     toc-title: Contents
     toc-expand: true
     toc-depth: 5
     number-sections: true
-    code-block-bg: "#F6F3EE"
+
     grid:
       margin-width: 400px
+    
 
     
 editor: visual

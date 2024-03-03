@@ -1,0 +1,150 @@
+---
+title: "Hands-on Exercise 8 (WIP)"
+subtitle: "Modelling, Visualising and Analysing Network Data with R"
+author: "Lim Jia Jia"
+date: March 3, 2024
+date-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  toc: true
+format: 
+  html:
+    code-fold: false
+---
+
+## Overview
+
+In this hands-on exercise, we will learn how to model, analyse and visualise network data using R.
+
+By the end of this hands-on exercise, we will be able to:
+
+-   create graph object data frames, manipulate them using appropriate functions of **dplyr**, **lubridate**, and **tidygraph**,
+-   build network graph visualisation using appropriate functions of **ggraph**,
+-   compute network geometrics using **tidygraph**,
+-   build advanced graph visualisation by incorporating the network geometrics, and
+-   build interactive network visualisation using **visNetwork** package.
+
+## Installing and launching R packages
+
+In this hands-on exercise, these R packages will be installed and launched:
+
+For network data modelling and visualisation:
+
+-   [igraph](https://cran.r-project.org/web/packages/igraph/vignettes/igraph.html)
+-   tidygraph
+-   ggraph
+-   visNetwork
+
+For time data handling and wrangling:
+
+-   [tidyverse](https://tidyverse.tidyverse.org/)
+-   [lubridate](https://lubridate.tidyverse.org/)
+
+```{r}
+pacman::p_load(igraph, tidygraph, ggraph, 
+               visNetwork, lubridate, clock,
+               tidyverse, graphlayouts)
+```
+
+## The Data
+
+The data sets used in this hands-on exercise is from an oil exploration and extraction company. There are two data sets:
+
+1.  contains the nodes data
+    -   *GAStech_email_nodes.csv* which consist of the names, department and title of the 55 employees.
+2.  contains the edges (also know as link) data
+    -   *GAStech-email_edges.csv* which consists of two weeks of 9063 emails correspondances between 55 employees.
+
+### Importing network data from files
+
+In this step, we import GAStech_email_node.csv and GAStech_email_edges-v2.csv into RStudio environment by using `read_csv()` of **readr** package.
+
+```{r}
+GAStech_nodes <- read_csv("data/GAStech_email_node.csv")
+GAStech_edges <- read_csv("data/GAStech_email_edge-v2.csv")
+```
+
+### Reviewing the imported data
+
+Next, we will examine the structure of the data frame using `glimpse()` of **dplyr**.
+
+GAStech_nodes 
+```{r}
+glimpse(GAStech_nodes)
+```
+GAStech_edges
+```{r}
+glimpse(GAStech_edges)
+```
+
+::: callout-warning
+The output report of GAStech_edges above reveals that the *SentDate* is treated as "Character" data type instead of *date* data type. This is an error! Before we continue, it is important for us to change the data type of *SentDate* field back to "Date"" data type.
+:::
+
+### Wrangling time
+
+The code chunk below will be used to perform the changes.
+
+```{r}
+GAStech_edges <- GAStech_edges %>%
+  mutate(SendDate = dmy(SentDate)) %>%
+  mutate(Weekday = wday(SentDate,
+                        label = TRUE,
+                        abbr = FALSE))
+```
+
+::: {.codebox .code data-latex="code"}
+**Things to learn from the code chunk above**
+
+-   both *dmy()* and *wday()* are functions of **lubridate** package.  
+-   *dmy()* transforms the SentDate to Date data type.  
+-   *wday()* returns the day of the week as a decimal number or an ordered factor if label is TRUE. The argument abbr is FALSE keep the daya spells in full, i.e. Monday. The function will create a new column in the data.frame i.e. Weekday and the output of *wday()* will save in this newly created field.  
+- the values in the *Weekday* field are in ordinal scale.
+:::
+
+### Reviewing the revised date fields
+
+Table below shows the data structure of the reformatted *GAStech_edges* data frame
+
+```{r}
+#| echo: false
+glimpse(GAStech_edges)
+# using echo, only the output will be shown, the code chunk is hidden
+```
+
+### Wrangling attributes
+
+A close examination of *GAStech_edges* data.frame reveals that it consists of individual e-mail flow records. This is not very useful for visualisation.
+
+In view of this, we will aggregate the individual by date, senders, receivers, main subject and day of the week.
+
+The code chunk:
+
+```{r}
+GAStech_edges_aggregated <- GAStech_edges %>%
+  filter(MainSubject == "Work related") %>%
+  group_by(source, target, Weekday) %>%
+    summarise(Weight = n()) %>%
+  filter(source!=target) %>%
+  filter(Weight > 1) %>%
+  ungroup()
+```
+
+::: {.codebox .code data-latex="code"}
+**Things to learn from the code chunk above**
+
+-   four functions from **dplyr** package are used. They are: *filter()*, *group()*, *summarise()*, and *ungroup()*.
+-   The output data.frame is called **GAStech_edges_aggregated**.
+-   A new field called *Weight* has been added in GAStech_edges_aggregated.
+:::
+
+### Reviewing the revised edges file
+
+Table below shows the data structure of the reformatted *GAStech_edges* data frame
+
+```{r}
+#| echo: false
+glimpse(GAStech_edges_aggregated)
+```

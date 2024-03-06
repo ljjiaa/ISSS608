@@ -1,0 +1,602 @@
+---
+title: "Take-home Exercise 4 (WIP)"
+subtitle: "Prototyping Modules for Visual Analytics Shiny Application"
+author: "Lim Jia Jia"
+date: March 5, 2024
+date-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  toc: true
+format: 
+  html:
+    code-fold: false
+---
+
+## Overview
+
+## Loading R packages
+
+```{r}
+pacman::p_load(tidyverse, dplyr, lubridate, timetk, ggplot2, modeltime, tidymodels)
+```
+
+## Data preparation
+
+```{r}
+weather <- read_rds("data/weather_imputed.rds")
+```
+
+```{r}
+glimpse(weather)
+```
+
+
+| Variable                  | Description                                                                                                                                                                 |
+|-------------------------|-----------------------------------------------|
+| Station                   | Consist of 7 station across Singapore , namely: Ang Mo Kio, Changi, Choa Chu Kang (South), East Coast Parkway, Jurong (West), Pulau Ubin, Seletar                           |
+| Date                      | 1 January 2021 to 31 December 2023 (3 years)                                                                                                                                |
+| Daily Rainfall Total (mm) | crucial weather metric, especially when analyzing weather patterns in a region like Singapore, known for its tropical climate with significant rainfall throughout the year |
+| Mean Temperature (°C)     | average temperature for a day and is calculated by averaging the temperatures measured at various points throughout the day                                                 |
+| Maximum Temperature (°C)  | lowest temperature recorded within a 24-hour period                                                                                                                         |
+| Minimum Temperature (°C)  | lowest temperature recorded within a 24-hour period                                                                                                                         |
+
+```{r}
+unique_stations <- unique(weather$Station)
+print(unique_stations)
+```
+
+The data table shows daily data for above 7 stations, the following function from **timetk** packages will be utilised for further time series data wrangling:
+
+-   `summarise_by_time()` - to aggregate by a period\
+-   `filter_by_time()` - to filter a continuous time range
+
+## Prototype
+
+### Time Series Analysis
+
+#### Simple time series plot 
+
+
+```{r}
+# Facet plot of different station
+weather %>%
+  group_by(Station) %>%                      # facet
+  filter_by_time(Date, "2021-01", "2023-12") %>%          #specify period
+  plot_time_series(Date, 
+                   `Mean Temperature (°C)`, 
+                   .facet_ncol = 3, 
+                   .smooth= FALSE) 
+```
+
+```{r}
+weather %>%
+  filter(Station == "Ang Mo Kio") %>%     # specify station
+  filter_by_time(Date, "2021-01", "2023-12") %>%    # specify period # for >1yr not stationary
+  plot_time_series(Date, 
+                   `Mean Temperature (°C)`, 
+                   .smooth = TRUE,
+                   .plotly_slider = TRUE)
+```
+
+The following plot shows the time series in months.
+```{r}
+weather %>%
+  filter(Station == "Ang Mo Kio") %>%
+  filter_by_time(Date, "2021-01", "2023-12") %>%
+  summarise_by_time(Date,
+                    .by = "month",           #aggregated by month
+                    `Mean Temperature (°C)` = round(mean(`Mean Temperature (°C)`),2)) %>%
+  plot_time_series(Date, `Mean Temperature (°C)`, .smooth = TRUE,
+                   .plotly_slider = TRUE)
+```
+
+The following plot highlight the different months using different colour. (note: it can only be applied for a period less than 1 year)
+
+```{r}
+weather %>%
+  filter(Station == "Ang Mo Kio") %>%
+  filter_by_time(Date, "2023-01", "2023-12") %>%
+  plot_time_series(Date, `Mean Temperature (°C)`, 
+                   .smooth = TRUE,
+                   .smooth_size = 0.8,
+                   .smooth_alpha = 0.8,
+                   .color_var = month(Date, label= TRUE),
+                   .plotly_slider = TRUE,
+                   .title = "Mean temperature for Ang Mo Kio",
+                   .y_lab = "(°C)",
+                   .color_lab = "Month") 
+```
+
+
+
+
+
+#### ACF Diagnostics
+
+ACF and PACF plot of daily data for a specific station
+
+```{r}
+weather %>%
+  filter(Station == "Ang Mo Kio") %>%
+  filter_by_time(Date, "2021-01", "2023-12") %>%
+  summarise_by_time(Date,
+                    .by = "day",              # day, month
+                    `Mean Temperature (°C)` = round(mean(`Mean Temperature (°C)`),2)) %>%
+  plot_acf_diagnostics(Date, `Mean Temperature (°C)`,
+                       .lags = "3 years")     # period 
+```
+
+ACF and PACF plot of monthly aggregated data for a specific station
+
+```{r}
+weather %>%
+  filter(Station == "Ang Mo Kio") %>%
+  filter_by_time(Date, "2021-01", "2023-12") %>%
+  summarise_by_time(Date,
+                    .by = "month",              # day, month
+                    `Mean Temperature (°C)` = round(mean(`Mean Temperature (°C)`),2)) %>%
+  plot_acf_diagnostics(Date, `Mean Temperature (°C)`,
+                       .lags = "3 years")     # period 
+```
+
+Facet ACF and PACF plot of monthly aggregated data
+
+```{r}
+weather %>%
+  group_by(Station) %>%                       # facet
+  filter_by_time(Date, "2021-01", "2023-12") %>%
+  summarise_by_time(Date,
+                    .by = "month",
+                    `Mean Temperature (°C)` = round(mean(`Mean Temperature (°C)`),2)) %>%
+  plot_acf_diagnostics(Date, `Mean Temperature (°C)`,
+                       .facet_ncol = 1,
+                       .lags = "3 years")
+```
+
+#### Seasonal and Trend decomposition using Loess
+
+```{r}
+#| fig-width: 8
+#| fig-height: 9
+weather %>%
+  filter(Station == "Ang Mo Kio") %>%
+  filter_by_time(Date, "2023-01", "2023-12") %>%           #using 1 year
+  plot_stl_diagnostics(Date, `Mean Temperature (°C)`,
+        # Set features to return, desired frequency and trend
+        .feature_set = c("observed", "season", "trend", "remainder"),
+        .frequency   = "auto",
+        .trend       = "auto",
+        .interactive = FALSE)
+```
+
+#### Seasonality Diagnostics
+
+```{r}
+weather %>%
+  filter(Station == "Ang Mo Kio") %>%
+  filter_by_time(Date, "2023-01", "2023-12") %>%            #using 1 year
+  plot_seasonal_diagnostics(Date, `Mean Temperature (°C)`,
+                            .feature_set = c("week", "month.lbl", "quarter"),
+                            .geom = "boxplot",
+                            .interactive = TRUE)
+```
+
+```{r}
+weather %>%
+  filter(Station == "Ang Mo Kio") %>%
+  filter_by_time(Date, "2023-01", "2023-12") %>%                  #using 1 year
+  plot_seasonal_diagnostics(Date, `Daily Rainfall Total (mm)`,
+                            .feature_set = c("week", "month.lbl", "quarter"),
+                            .geom = "boxplot",
+                            .interactive = TRUE)
+```
+
+#### Anomaly Detection
+
+```{r}
+weather %>%
+  filter(Station == "Ang Mo Kio") %>%
+  filter_by_time(Date, "2023-01", "2023-12") %>%           #using 1 year
+  anomalize(.date_var = Date, 
+            .value = `Mean Temperature (°C)`,
+            .iqr_alpha = 0.10,                #Controls the width of the "normal" range
+            # .max_anomalies = 0.10,
+            # .message = FALSE
+) %>%
+  plot_anomalies(Date,
+                 .ribbon_alpha = 0.15, 
+                 .interactive = TRUE)
+```
+
+
+
+### Time series forecasting
+
+In this section, we will perform forecasting on the weather data set using [**modeltime**](https://business-science.github.io/modeltime/index.html).
+
+Following steps will be used to build forecasting mode:
+
+1.  Split data into training and test sets
+2.  Create & Fit Multiple Models
+3.  Add fitted models to a Model Table
+4.  Calibrate the models to a testing set.
+5.  Perform Testing Set Forecast & Accuracy Evaluation
+6.  Refit the models to Full Dataset & Forecast Forward
+
+Step 1 to Step 6 below is done using data set from 1 January 2021 to 31 December 2023, as using data set from 1 January 2023 to 31 December 2023.
+
+#### Step 1 - Split data into training and test sets
+
+```{r}
+weather_AMK <- weather %>%
+  filter(Station == "Ang Mo Kio") %>%
+  filter_by_time(Date, "2021-01", "2023-12") 
+
+weather_AMK %>%          
+  plot_time_series(Date, `Mean Temperature (°C)`)
+```
+
+```{r}
+weather %>%
+  filter(Station == "Ang Mo Kio") %>%
+  filter_by_time(Date, "2021-01", "2023-12") %>%
+  summarise_by_time(Date,
+                    .by = "day",              # day, month
+                    `Mean Temperature (°C)` = round(mean(`Mean Temperature (°C)`),2)) %>%
+  plot_acf_diagnostics(Date, `Mean Temperature (°C)`,
+                       .lags = "3 years")     # period 
+```
+
+```{r}
+# Split Data 80/20
+splits <- initial_time_split(weather_AMK, prop = 0.8)
+```
+
+```{r}
+splits
+```
+
+#### Step 2 - Create & Fit Multiple Models
+
+[Model 1: Auto ARIMA]{style="font-size: 18px; color: #C6978E; font-weight: bold;"}
+
+```{r}
+model_fit_arima_no_boost <- arima_reg() %>%
+    set_engine(engine = "auto_arima") %>%
+    fit(`Mean Temperature (°C)` ~ Date, data = training(splits))
+```
+
+[Model 2: Boosted Auto ARIMA]{style="font-size: 18px; color: #C6978E; font-weight: bold;"}
+
+```{r}
+model_fit_arima_boosted <- arima_boost(
+    min_n = 2,
+    learn_rate = 0.015
+) %>%
+    set_engine(engine = "auto_arima_xgboost") %>%
+    fit(`Mean Temperature (°C)` ~ Date + 
+          as.numeric(Date) + factor(month(Date, label = TRUE), ordered = F),
+        data = training(splits))
+```
+
+[Model 3: Exponential Smoothing]{style="font-size: 18px; color: #C6978E; font-weight: bold;"}
+
+```{r}
+model_fit_ets <- exp_smoothing() %>%
+    set_engine(engine = "ets") %>%
+    fit(`Mean Temperature (°C)` ~ Date , data = training(splits))
+```
+
+[Model 4: Linear Regression]{style="font-size: 18px; color: #C6978E; font-weight: bold;"}
+
+```{r}
+model_fit_lm <- linear_reg() %>%
+    set_engine("lm") %>%
+    fit(`Mean Temperature (°C)` ~ as.numeric(Date) 
+        + factor(month(Date, label = TRUE), ordered = FALSE),
+        data = training(splits))
+```
+
+#### Step 3 - Add fitted models to a Model Table
+
+```{r}
+models_tbl <- modeltime_table(
+    model_fit_arima_no_boost,
+    model_fit_arima_boosted,
+    model_fit_ets,
+    model_fit_lm
+)
+models_tbl
+```
+
+#### Step 4 - Calibrate the model to a testing set
+
+```{r}
+calibration_tbl <- models_tbl %>%
+    modeltime_calibrate(new_data = testing(splits))
+
+calibration_tbl
+```
+
+#### Step 5 - Testing Set Forecast & Accuracy Evaluation
+
+There are 2 critical parts to an evaluation:
+
+-   Visualizing the Forecast vs Test Data Set
+-   Evaluating the Test (Out of Sample) Accuracy
+
+**5A - Visualizing the Forecast Test** Visualizing the Test Error is easy to do using the interactive plotly visualization (just toggle the visibility of the models using the Legend).
+
+```{r}
+calibration_tbl %>%
+    modeltime_forecast(
+        new_data    = testing(splits),
+        actual_data = weather_AMK
+    ) %>%
+    plot_modeltime_forecast(
+      .legend_max_width = 25, # For mobile screens
+      # .interactive      = interactive,
+      .plotly_slider = TRUE
+    )
+```
+
+**5B - Accuracy Metrics** We can use modeltime_accuracy() to collect common accuracy metrics. The default reports the following metrics using yardstick functions:
+
+MAE - Mean absolute error, mae() MAPE - Mean absolute percentage error, mape() MASE - Mean absolute scaled error, mase() SMAPE - Symmetric mean absolute percentage error, smape() RMSE - Root mean squared error, rmse() RSQ - R-squared, rsq()
+
+```{r}
+calibration_tbl %>%
+    modeltime_accuracy() %>%
+    table_modeltime_accuracy(
+        # .interactive = interactive
+    )
+```
+
+#### Step 6 - Refit to Full Dataset & Forecast Forward
+
+```{r}
+refit_tbl <- calibration_tbl %>%
+    modeltime_refit(data = weather_AMK)
+
+refit_tbl %>%
+    modeltime_forecast(h = "10 days", actual_data = weather_AMK) %>%
+    plot_modeltime_forecast(
+      .legend_max_width = 25, # For mobile screens
+      # .interactive      = interactive,
+      .plotly_slider = TRUE
+    )
+```
+
+#### Repeat step 1 to 6 for 12 months
+##### Step 1 - Split data into training and test sets
+
+```{r}
+weather_AMK_2023 <- weather %>%
+  filter(Station == "Ang Mo Kio") %>%
+  filter_by_time(Date, "2023-01", "2023-12") 
+
+weather_AMK_2023 %>%          
+  plot_time_series(Date, `Mean Temperature (°C)`)
+```
+
+```{r}
+weather %>%
+  filter(Station == "Ang Mo Kio") %>%
+  filter_by_time(Date, "2023-01", "2023-12") %>%
+  summarise_by_time(Date,
+                    .by = "day",              # day, month
+                    `Mean Temperature (°C)` = round(mean(`Mean Temperature (°C)`),2)) %>%
+  plot_acf_diagnostics(Date, `Mean Temperature (°C)`,
+                       .lags = "1 years")     # period 
+```
+
+```{r}
+# Split Data 80/20
+splits_2023 <- initial_time_split(weather_AMK_2023, prop = 0.8)
+```
+
+```{r}
+splits_2023
+```
+
+##### Step 2 - Create & Fit Multiple Models
+
+[Model 1: Auto ARIMA]{style="font-size: 18px; color: #C6978E; font-weight: bold;"}
+
+```{r}
+model_fit_arima_no_boost_2023 <- arima_reg() %>%
+    set_engine(engine = "auto_arima") %>%
+    fit(`Mean Temperature (°C)` ~ Date, data = training(splits_2023))
+```
+
+[Model 2: Boosted Auto ARIMA]{style="font-size: 18px; color: #C6978E; font-weight: bold;"}
+
+```{r}
+model_fit_arima_boosted_2023 <- arima_boost(
+    min_n = 2,
+    learn_rate = 0.015
+) %>%
+    set_engine(engine = "auto_arima_xgboost") %>%
+    fit(`Mean Temperature (°C)` ~ Date + 
+          as.numeric(Date) + factor(month(Date, label = TRUE), ordered = F),
+        data = training(splits_2023))
+```
+
+[Model 3: Exponential Smoothing]{style="font-size: 18px; color: #C6978E; font-weight: bold;"}
+
+```{r}
+model_fit_ets_2023 <- exp_smoothing() %>%
+    set_engine(engine = "ets") %>%
+    fit(`Mean Temperature (°C)` ~ Date , data = training(splits_2023))
+```
+
+[Model 4: Linear Regression]{style="font-size: 18px; color: #C6978E; font-weight: bold;"}
+
+```{r}
+model_fit_lm_2023 <- linear_reg() %>%
+    set_engine("lm") %>%
+    fit(`Mean Temperature (°C)` ~ as.numeric(Date) 
+        + factor(month(Date, label = TRUE), ordered = FALSE),
+        data = training(splits_2023))
+```
+
+##### Step 3 - Add fitted models to a Model Table
+
+```{r}
+models_tbl_2023 <- modeltime_table(
+    model_fit_arima_no_boost_2023,
+    model_fit_arima_boosted_2023,
+    model_fit_ets_2023,
+    model_fit_lm_2023
+)
+models_tbl_2023
+```
+
+##### Step 4 - Calibrate the model to a testing set
+
+```{r}
+calibration_tbl_2023 <- models_tbl %>%
+    modeltime_calibrate(new_data = testing(splits_2023))
+
+calibration_tbl_2023
+```
+
+##### Step 5 - Testing Set Forecast & Accuracy Evaluation
+
+There are 2 critical parts to an evaluation:
+
+-   Visualizing the Forecast vs Test Data Set
+-   Evaluating the Test (Out of Sample) Accuracy
+
+**5A - Visualizing the Forecast Test** Visualizing the Test Error is easy to do using the interactive plotly visualization (just toggle the visibility of the models using the Legend).
+
+```{r}
+calibration_tbl_2023 %>%
+    modeltime_forecast(
+        new_data    = testing(splits_2023),
+        actual_data = weather_AMK_2023
+    ) %>%
+    plot_modeltime_forecast(
+      .legend_max_width = 25, # For mobile screens
+      # .interactive      = interactive,
+      .plotly_slider = TRUE
+    )
+```
+
+**5B - Accuracy Metrics** We can use modeltime_accuracy() to collect common accuracy metrics. The default reports the following metrics using yardstick functions:
+
+MAE - Mean absolute error, mae() MAPE - Mean absolute percentage error, mape() MASE - Mean absolute scaled error, mase() SMAPE - Symmetric mean absolute percentage error, smape() RMSE - Root mean squared error, rmse() RSQ - R-squared, rsq()
+
+```{r}
+calibration_tbl_2023 %>%
+    modeltime_accuracy() %>%
+    table_modeltime_accuracy(
+        # .interactive = interactive
+    )
+```
+
+##### Step 6 - Refit to Full Dataset & Forecast Forward
+
+```{r}
+refit_tbl_2023 <- calibration_tbl_2023 %>%
+    modeltime_refit(data = weather_AMK)
+
+refit_tbl_2023 %>%
+    modeltime_forecast(h = "10 days", actual_data = weather_AMK_2023) %>%
+    plot_modeltime_forecast(
+      .legend_max_width = 25, # For mobile screens
+      # .interactive      = interactive,
+      .plotly_slider = TRUE
+    )
+```
+
+
+
+
+#### Comparing ARIMA
+This section compares the result of auto arima and arima for the period of 1 January 2021 to 31 December 2023.
+
+```{r}
+# Auto arima
+model_fit_autoarima <- arima_reg() %>%
+    set_engine(engine = "auto_arima") %>%
+    fit(`Mean Temperature (°C)` ~ Date, data = training(splits))
+
+model_fit_autoarima
+```
+
+```{r}
+# Manual arima
+model_fit_manualarima <- arima_reg(
+        seasonal_period          = 12,
+        non_seasonal_ar          = 3,
+        non_seasonal_differences = 1,
+        non_seasonal_ma          = 3,
+        seasonal_ar              = 1,
+        seasonal_differences     = 0,
+        seasonal_ma              = 1
+    ) %>%
+    set_engine("arima") %>%
+    fit(`Mean Temperature (°C)` ~ Date, data = training(splits))
+
+model_fit_manualarima
+```
+
+```{r}
+models_tbl_1 <- modeltime_table(
+    model_fit_autoarima,
+    model_fit_manualarima
+)
+models_tbl_1
+```
+
+```{r}
+calibration_tbl_1 <- models_tbl_1 %>%
+    modeltime_calibrate(new_data = testing(splits))
+
+calibration_tbl_1
+```
+
+```{r}
+calibration_tbl_1 %>%
+    modeltime_forecast(
+        new_data    = testing(splits),
+        actual_data = weather_AMK
+    ) %>%
+    plot_modeltime_forecast(
+      .legend_max_width = 25, # For mobile screens
+      # .interactive      = interactive,
+      .plotly_slider = TRUE
+    )
+```
+
+```{r}
+calibration_tbl_1 %>%
+    modeltime_accuracy() %>%
+    table_modeltime_accuracy(
+        # .interactive = interactive
+    )
+```
+
+```{r}
+calibration_tbl_1 %>%
+    modeltime_residuals() %>%
+    plot_modeltime_residuals(.interactive = TRUE)
+```
+
+```{r}
+refit_tbl_1 <- calibration_tbl_1 %>%
+    modeltime_refit(data = weather_AMK)
+
+refit_tbl_1 %>%
+    modeltime_forecast(h = "10 days", actual_data = weather_AMK) %>%
+    plot_modeltime_forecast(
+      .legend_max_width = 25, # For mobile screens
+      # .interactive      = interactive,
+      .plotly_slider = TRUE
+    )
+```
+
+## UI design

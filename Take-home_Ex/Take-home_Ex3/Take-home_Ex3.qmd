@@ -63,7 +63,7 @@ combined
 After examining the data table, the data preparation issues and the corresponding actions are documented in the table below:
 
 | Data preparation issue     | Action                                                          |
-|-------------------------|-----------------------------------------------|
+|-------------------------|----------------------------------------------|
 | Inappropriate column types | Convert "Year", "Month" and "Day" to factor using `as.factor()` |
 | Column names with spaces   | Remove spaces from column names using `rename()`                |
 | Derivation of new column   | Derive the differences between Maxtemp and Mintemp              |
@@ -335,7 +335,7 @@ The table above shows at least one result from Shapiro-Wilk test yields p-value 
 
 A non-parametric Kruskal-Wallis Test is conducted to determine if there is any significant difference in average daily mean, mininum, maximum temperature across different years. The following hypothesis are used in the respective test:
 
-[Mean]{style="font-size: 18px; font-weight: bold;"} 
+[Mean]{style="font-size: 18px; font-weight: bold;"}
 
 *H~0~ : Average of daily mean temperature across different years are equal*\
 *H~1~ : Average of daily mean temperature across different years are not equal*
@@ -408,7 +408,6 @@ As the p value is consistently \< significant level of 0.05, we conclude that th
 Upon close examination through pairwise comparison, we noted that there is no significant difference between 1983 to 2013. However, for year 2023, there is a significant increase in daily temperature as compared to 2013.
 
 It is important to note that while the difference between 2013 and 2023 is statistically significant, the actual temperature difference falls within 1.5°C to 1.7°C. This gradual increase aligns with the broader claim of projected temperature rise.
-
 :::
 
 ## Conclusion

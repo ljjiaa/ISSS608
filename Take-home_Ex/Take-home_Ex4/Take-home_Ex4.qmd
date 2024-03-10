@@ -1,8 +1,8 @@
 ---
-title: "Take-home Exercise 4 (WIP)"
+title: "Take-home Exercise 4 (Work-In-Progress)"
 subtitle: "Prototyping Modules for Visual Analytics Shiny Application"
 author: "Lim Jia Jia"
-date: March 5, 2024
+date: March 7, 2024
 date-modified: "last-modified"
 execute: 
   eval: true
@@ -16,587 +16,497 @@ format:
 
 ## Overview
 
+In this take-home exercise, we are required to select one of the module of our proposed Shiny application and complete the following tasks:
+
+-   To evaluate and determine the necessary R packages needed for your Shiny application are supported in R CRAN,
+-   To prepare and test the specific R codes can be run and returned the correct output as expected,
+-   To determine the parameters and outputs that will be exposed on the Shiny applications, and
+-   To select the appropriate Shiny UI components for exposing the parameters determine above.
+
+The module that we are focusing on is the univariate forecasting of the data.
+
 ## Loading R packages
+First and foremost, we will start by loading the R packages required. 
 
 ```{r}
-pacman::p_load(tidyverse, dplyr, lubridate, timetk, ggplot2, modeltime, tidymodels)
+pacman::p_load(tidyverse, dplyr, lubridate, ggplot2,  
+                fable, fabletools, feasts, tsibble, tsibbledata, kableExtra,
+               plotly, DT, forecast)
 ```
 
 ## Data preparation
+As this take home exercise serves as analysis of one of the module of the project, the data preparation steps is only performed once to ensure that same data set **(weather_imputed_11stations.rds)** are used across all members. Detailed preparation steps can be found in this link. 
 
+
+### Importing the data
+
+We import the processed data set using `read_rds()`, 
 ```{r}
-weather <- read_rds("data/weather_imputed.rds")
+weather <- read_rds("data/weather_imputed_11stations.rds")
 ```
 
 ```{r}
-glimpse(weather)
+head(weather)
 ```
 
-
-| Variable                  | Description                                                                                                                                                                 |
-|-------------------------|-----------------------------------------------|
-| Station                   | Consist of 7 station across Singapore , namely: Ang Mo Kio, Changi, Choa Chu Kang (South), East Coast Parkway, Jurong (West), Pulau Ubin, Seletar                           |
-| Date                      | 1 January 2021 to 31 December 2023 (3 years)                                                                                                                                |
-| Daily Rainfall Total (mm) | crucial weather metric, especially when analyzing weather patterns in a region like Singapore, known for its tropical climate with significant rainfall throughout the year |
-| Mean Temperature (°C)     | average temperature for a day and is calculated by averaging the temperatures measured at various points throughout the day                                                 |
-| Maximum Temperature (°C)  | lowest temperature recorded within a 24-hour period                                                                                                                         |
-| Minimum Temperature (°C)  | lowest temperature recorded within a 24-hour period                                                                                                                         |
+### Convert to tsibble data frame
+The dataset comprises daily records of rainfall and temperature gathered from various weather stations across Singapore. Initially, this data is loaded in a 'tibble' format. However, for our forecasting analysis, we will be using [**fable**](https://fable.tidyverts.org/) package, which is part of the [tidyverts](https://tidyverts.org/) ecosystem and requires data in a ['tsibble'](https://tsibble.tidyverts.org/) format. To accommodate this requirement, we will convert our tibble dataframe into a tsibble using the following code.
 
 ```{r}
-unique_stations <- unique(weather$Station)
-print(unique_stations)
+weather_tsbl <- as_tsibble(weather, key = Station, index = Date)
+weather_tsbl
 ```
 
-The data table shows daily data for above 7 stations, the following function from **timetk** packages will be utilised for further time series data wrangling:
-
--   `summarise_by_time()` - to aggregate by a period\
--   `filter_by_time()` - to filter a continuous time range
-
-## Prototype
-
-### Time Series Analysis
-
-#### Simple time series plot 
-
-
+The list below shows 11 unique stations.
 ```{r}
-# Facet plot of different station
-weather %>%
-  group_by(Station) %>%                      # facet
-  filter_by_time(Date, "2021-01", "2023-12") %>%          #specify period
-  plot_time_series(Date, 
-                   `Mean Temperature (°C)`, 
-                   .facet_ncol = 3, 
-                   .smooth= FALSE) 
+Station <- weather_tsbl %>% distinct(Station)
+
+datatable(Station, 
+          class= "compact",
+          rownames = FALSE,
+          width="100%", 
+          options = list(pageLength = 12,scrollX=T))
 ```
 
+::: {.focusbox .focus data-latex="focus"}
+**What is tsibble?**
+
+A tsibble consists of a time index, key, and other measured variables in a data-centric format. In tsibble,
+
+-   Index is a variable with inherent ordering from past to present.
+-   Key is a set of variables that define observational units over time.
+-   Each observation should be uniquely identified by index and key.
+-   Each observational unit should be measured at a common interval, if regularly spaced.
+:::
+
+
+
+## Section 1: Time Series Exploration
+
+In this section, users can interactively explore time series data using a line graph equipped with a time slider. They have the option to select specific stations, variables, and time periods for analysis.
+ 
 ```{r}
-weather %>%
-  filter(Station == "Ang Mo Kio") %>%     # specify station
-  filter_by_time(Date, "2021-01", "2023-12") %>%    # specify period # for >1yr not stationary
-  plot_time_series(Date, 
-                   `Mean Temperature (°C)`, 
-                   .smooth = TRUE,
-                   .plotly_slider = TRUE)
+# user defined parameter
+selected_stations <- c("Ang Mo Kio", "Changi", "Tai Seng") 
+variable_temp <- "Minimum Temperature (°C)"
+variable_rain <- "Daily Rainfall Total (mm)"
+start_date <- "2021-01-01"
+end_date <-  "2023-12-31"
+
 ```
 
-The following plot shows the time series in months.
-```{r}
-weather %>%
-  filter(Station == "Ang Mo Kio") %>%
-  filter_by_time(Date, "2021-01", "2023-12") %>%
-  summarise_by_time(Date,
-                    .by = "month",           #aggregated by month
-                    `Mean Temperature (°C)` = round(mean(`Mean Temperature (°C)`),2)) %>%
-  plot_time_series(Date, `Mean Temperature (°C)`, .smooth = TRUE,
-                   .plotly_slider = TRUE)
-```
+### Panel 1a: line graph
+:::panel-tabset
 
-The following plot highlight the different months using different colour. (note: it can only be applied for a period less than 1 year)
+#### Daily view
 
 ```{r}
-weather %>%
-  filter(Station == "Ang Mo Kio") %>%
-  filter_by_time(Date, "2023-01", "2023-12") %>%
-  plot_time_series(Date, `Mean Temperature (°C)`, 
-                   .smooth = TRUE,
-                   .smooth_size = 0.8,
-                   .smooth_alpha = 0.8,
-                   .color_var = month(Date, label= TRUE),
-                   .plotly_slider = TRUE,
-                   .title = "Mean temperature for Ang Mo Kio",
-                   .y_lab = "(°C)",
-                   .color_lab = "Month") 
-```
+# Filter data based on period
+filtered_period <- weather_tsbl %>%
+  filter_index(start_date ~ end_date)
 
+# Filter period-filtered data based on multiple selected stations
+filtered_period_mstn <- filtered_period  %>%
+  filter(Station %in% selected_stations) 
 
+# Generate the plot based on filtered data
+plot_ly(filtered_period_mstn, 
+             x = ~Date, 
+             y = as.formula(paste0("~`", variable_temp, "`")), 
+             type = 'scatter', 
+             mode = 'lines', 
+             color = ~Station,
+             hoverinfo = 'text',
+             text = ~paste("<b>Station:</b>", Station,
+                           "<br><b>Date:</b>", Date,
+                           "<br><b>", variable_temp, ":</b>", filtered_period_mstn[[variable_temp]])) %>%
+  layout(title = paste(variable_temp, "by Station"),
+         xaxis = list(title = ""),
+         yaxis = list(title = "")) %>%
 
+# Display the plot
+ layout(xaxis = list(rangeslider = list(type = "date"))) 
 
-
-#### ACF Diagnostics
-
-ACF and PACF plot of daily data for a specific station
-
-```{r}
-weather %>%
-  filter(Station == "Ang Mo Kio") %>%
-  filter_by_time(Date, "2021-01", "2023-12") %>%
-  summarise_by_time(Date,
-                    .by = "day",              # day, month
-                    `Mean Temperature (°C)` = round(mean(`Mean Temperature (°C)`),2)) %>%
-  plot_acf_diagnostics(Date, `Mean Temperature (°C)`,
-                       .lags = "3 years")     # period 
-```
-
-ACF and PACF plot of monthly aggregated data for a specific station
-
-```{r}
-weather %>%
-  filter(Station == "Ang Mo Kio") %>%
-  filter_by_time(Date, "2021-01", "2023-12") %>%
-  summarise_by_time(Date,
-                    .by = "month",              # day, month
-                    `Mean Temperature (°C)` = round(mean(`Mean Temperature (°C)`),2)) %>%
-  plot_acf_diagnostics(Date, `Mean Temperature (°C)`,
-                       .lags = "3 years")     # period 
-```
-
-Facet ACF and PACF plot of monthly aggregated data
-
-```{r}
-weather %>%
-  group_by(Station) %>%                       # facet
-  filter_by_time(Date, "2021-01", "2023-12") %>%
-  summarise_by_time(Date,
-                    .by = "month",
-                    `Mean Temperature (°C)` = round(mean(`Mean Temperature (°C)`),2)) %>%
-  plot_acf_diagnostics(Date, `Mean Temperature (°C)`,
-                       .facet_ncol = 1,
-                       .lags = "3 years")
-```
-
-#### Seasonal and Trend decomposition using Loess
-
-```{r}
-#| fig-width: 8
-#| fig-height: 9
-weather %>%
-  filter(Station == "Ang Mo Kio") %>%
-  filter_by_time(Date, "2023-01", "2023-12") %>%           #using 1 year
-  plot_stl_diagnostics(Date, `Mean Temperature (°C)`,
-        # Set features to return, desired frequency and trend
-        .feature_set = c("observed", "season", "trend", "remainder"),
-        .frequency   = "auto",
-        .trend       = "auto",
-        .interactive = FALSE)
-```
-
-#### Seasonality Diagnostics
-
-```{r}
-weather %>%
-  filter(Station == "Ang Mo Kio") %>%
-  filter_by_time(Date, "2023-01", "2023-12") %>%            #using 1 year
-  plot_seasonal_diagnostics(Date, `Mean Temperature (°C)`,
-                            .feature_set = c("week", "month.lbl", "quarter"),
-                            .geom = "boxplot",
-                            .interactive = TRUE)
-```
-
-```{r}
-weather %>%
-  filter(Station == "Ang Mo Kio") %>%
-  filter_by_time(Date, "2023-01", "2023-12") %>%                  #using 1 year
-  plot_seasonal_diagnostics(Date, `Daily Rainfall Total (mm)`,
-                            .feature_set = c("week", "month.lbl", "quarter"),
-                            .geom = "boxplot",
-                            .interactive = TRUE)
-```
-
-#### Anomaly Detection
-
-```{r}
-weather %>%
-  filter(Station == "Ang Mo Kio") %>%
-  filter_by_time(Date, "2023-01", "2023-12") %>%           #using 1 year
-  anomalize(.date_var = Date, 
-            .value = `Mean Temperature (°C)`,
-            .iqr_alpha = 0.10,                #Controls the width of the "normal" range
-            # .max_anomalies = 0.10,
-            # .message = FALSE
-) %>%
-  plot_anomalies(Date,
-                 .ribbon_alpha = 0.15, 
-                 .interactive = TRUE)
 ```
 
 
 
-### Time series forecasting
+#### Weekly: avarage Temperature
 
-In this section, we will perform forecasting on the weather data set using [**modeltime**](https://business-science.github.io/modeltime/index.html).
+Average of the following variables:
+"Mean Temperature (°C)", "Minimum Temperature (°C)", "Maximum Temperature (°C)"
 
-Following steps will be used to build forecasting mode:
-
-1.  Split data into training and test sets
-2.  Create & Fit Multiple Models
-3.  Add fitted models to a Model Table
-4.  Calibrate the models to a testing set.
-5.  Perform Testing Set Forecast & Accuracy Evaluation
-6.  Refit the models to Full Dataset & Forecast Forward
-
-Step 1 to Step 6 below is done using data set from 1 January 2021 to 31 December 2023, as using data set from 1 January 2023 to 31 December 2023.
-
-#### Step 1 - Split data into training and test sets
 
 ```{r}
-weather_AMK <- weather %>%
-  filter(Station == "Ang Mo Kio") %>%
-  filter_by_time(Date, "2021-01", "2023-12") 
 
-weather_AMK %>%          
-  plot_time_series(Date, `Mean Temperature (°C)`)
-```
+# Summarise period-filtered temperature data based on weekly average
+summarised_temp <- filtered_period %>%
+  group_by_key() %>%
+  index_by(year_week = ~ yearweek(.)) %>%
+  summarise(
+    avg_temp = round(mean(.data[[variable_temp]]),2), na.rm = TRUE)
 
-```{r}
-weather %>%
-  filter(Station == "Ang Mo Kio") %>%
-  filter_by_time(Date, "2021-01", "2023-12") %>%
-  summarise_by_time(Date,
-                    .by = "day",              # day, month
-                    `Mean Temperature (°C)` = round(mean(`Mean Temperature (°C)`),2)) %>%
-  plot_acf_diagnostics(Date, `Mean Temperature (°C)`,
-                       .lags = "3 years")     # period 
-```
+# Filter summarised temperature data based on multiple selected stations
+summarised_temp_mstn <- summarised_temp  %>%
+  filter(Station %in% selected_stations) 
 
-```{r}
-# Split Data 80/20
-splits <- initial_time_split(weather_AMK, prop = 0.8)
-```
+# Convert the year_week result to the first day of the week for plotting
+summarised_temp_mstn <- summarised_temp_mstn %>%
+  mutate(week_start_date = floor_date(as.Date(year_week), unit = "week"))
 
-```{r}
-splits
-```
+# Generate the plot based on filtered data
+plot_ly(summarised_temp_mstn, x = ~week_start_date, y = ~avg_temp,
+             type = 'scatter', mode = 'lines', color = ~Station,
+             hoverinfo = 'text',
+             text = ~paste("<b>Station:</b>", Station, 
+                           "<br><b>Week Starting:</b>", week_start_date, 
+                           "<br><b>Average", variable_temp, ":</b>", avg_temp)) %>%
 
-#### Step 2 - Create & Fit Multiple Models
+  layout(title = paste("Weekly Average", variable_temp, "by Station"),
+         xaxis = list(title = ""),
+         yaxis = list(title = "")) %>%
+  
+  # Display the plot
+  layout(xaxis = list(rangeslider = list(type = "date"))) 
 
-[Model 1: Auto ARIMA]{style="font-size: 18px; color: #C6978E; font-weight: bold;"}
-
-```{r}
-model_fit_arima_no_boost <- arima_reg() %>%
-    set_engine(engine = "auto_arima") %>%
-    fit(`Mean Temperature (°C)` ~ Date, data = training(splits))
-```
-
-[Model 2: Boosted Auto ARIMA]{style="font-size: 18px; color: #C6978E; font-weight: bold;"}
-
-```{r}
-model_fit_arima_boosted <- arima_boost(
-    min_n = 2,
-    learn_rate = 0.015
-) %>%
-    set_engine(engine = "auto_arima_xgboost") %>%
-    fit(`Mean Temperature (°C)` ~ Date + 
-          as.numeric(Date) + factor(month(Date, label = TRUE), ordered = F),
-        data = training(splits))
-```
-
-[Model 3: Exponential Smoothing]{style="font-size: 18px; color: #C6978E; font-weight: bold;"}
-
-```{r}
-model_fit_ets <- exp_smoothing() %>%
-    set_engine(engine = "ets") %>%
-    fit(`Mean Temperature (°C)` ~ Date , data = training(splits))
-```
-
-[Model 4: Linear Regression]{style="font-size: 18px; color: #C6978E; font-weight: bold;"}
-
-```{r}
-model_fit_lm <- linear_reg() %>%
-    set_engine("lm") %>%
-    fit(`Mean Temperature (°C)` ~ as.numeric(Date) 
-        + factor(month(Date, label = TRUE), ordered = FALSE),
-        data = training(splits))
-```
-
-#### Step 3 - Add fitted models to a Model Table
-
-```{r}
-models_tbl <- modeltime_table(
-    model_fit_arima_no_boost,
-    model_fit_arima_boosted,
-    model_fit_ets,
-    model_fit_lm
-)
-models_tbl
-```
-
-#### Step 4 - Calibrate the model to a testing set
-
-```{r}
-calibration_tbl <- models_tbl %>%
-    modeltime_calibrate(new_data = testing(splits))
-
-calibration_tbl
-```
-
-#### Step 5 - Testing Set Forecast & Accuracy Evaluation
-
-There are 2 critical parts to an evaluation:
-
--   Visualizing the Forecast vs Test Data Set
--   Evaluating the Test (Out of Sample) Accuracy
-
-**5A - Visualizing the Forecast Test** Visualizing the Test Error is easy to do using the interactive plotly visualization (just toggle the visibility of the models using the Legend).
-
-```{r}
-calibration_tbl %>%
-    modeltime_forecast(
-        new_data    = testing(splits),
-        actual_data = weather_AMK
-    ) %>%
-    plot_modeltime_forecast(
-      .legend_max_width = 25, # For mobile screens
-      # .interactive      = interactive,
-      .plotly_slider = TRUE
-    )
-```
-
-**5B - Accuracy Metrics** We can use modeltime_accuracy() to collect common accuracy metrics. The default reports the following metrics using yardstick functions:
-
-MAE - Mean absolute error, mae() MAPE - Mean absolute percentage error, mape() MASE - Mean absolute scaled error, mase() SMAPE - Symmetric mean absolute percentage error, smape() RMSE - Root mean squared error, rmse() RSQ - R-squared, rsq()
-
-```{r}
-calibration_tbl %>%
-    modeltime_accuracy() %>%
-    table_modeltime_accuracy(
-        # .interactive = interactive
-    )
-```
-
-#### Step 6 - Refit to Full Dataset & Forecast Forward
-
-```{r}
-refit_tbl <- calibration_tbl %>%
-    modeltime_refit(data = weather_AMK)
-
-refit_tbl %>%
-    modeltime_forecast(h = "10 days", actual_data = weather_AMK) %>%
-    plot_modeltime_forecast(
-      .legend_max_width = 25, # For mobile screens
-      # .interactive      = interactive,
-      .plotly_slider = TRUE
-    )
-```
-
-#### Repeat step 1 to 6 for 12 months
-##### Step 1 - Split data into training and test sets
-
-```{r}
-weather_AMK_2023 <- weather %>%
-  filter(Station == "Ang Mo Kio") %>%
-  filter_by_time(Date, "2023-01", "2023-12") 
-
-weather_AMK_2023 %>%          
-  plot_time_series(Date, `Mean Temperature (°C)`)
-```
-
-```{r}
-weather %>%
-  filter(Station == "Ang Mo Kio") %>%
-  filter_by_time(Date, "2023-01", "2023-12") %>%
-  summarise_by_time(Date,
-                    .by = "day",              # day, month
-                    `Mean Temperature (°C)` = round(mean(`Mean Temperature (°C)`),2)) %>%
-  plot_acf_diagnostics(Date, `Mean Temperature (°C)`,
-                       .lags = "1 years")     # period 
-```
-
-```{r}
-# Split Data 80/20
-splits_2023 <- initial_time_split(weather_AMK_2023, prop = 0.8)
-```
-
-```{r}
-splits_2023
-```
-
-##### Step 2 - Create & Fit Multiple Models
-
-[Model 1: Auto ARIMA]{style="font-size: 18px; color: #C6978E; font-weight: bold;"}
-
-```{r}
-model_fit_arima_no_boost_2023 <- arima_reg() %>%
-    set_engine(engine = "auto_arima") %>%
-    fit(`Mean Temperature (°C)` ~ Date, data = training(splits_2023))
-```
-
-[Model 2: Boosted Auto ARIMA]{style="font-size: 18px; color: #C6978E; font-weight: bold;"}
-
-```{r}
-model_fit_arima_boosted_2023 <- arima_boost(
-    min_n = 2,
-    learn_rate = 0.015
-) %>%
-    set_engine(engine = "auto_arima_xgboost") %>%
-    fit(`Mean Temperature (°C)` ~ Date + 
-          as.numeric(Date) + factor(month(Date, label = TRUE), ordered = F),
-        data = training(splits_2023))
-```
-
-[Model 3: Exponential Smoothing]{style="font-size: 18px; color: #C6978E; font-weight: bold;"}
-
-```{r}
-model_fit_ets_2023 <- exp_smoothing() %>%
-    set_engine(engine = "ets") %>%
-    fit(`Mean Temperature (°C)` ~ Date , data = training(splits_2023))
-```
-
-[Model 4: Linear Regression]{style="font-size: 18px; color: #C6978E; font-weight: bold;"}
-
-```{r}
-model_fit_lm_2023 <- linear_reg() %>%
-    set_engine("lm") %>%
-    fit(`Mean Temperature (°C)` ~ as.numeric(Date) 
-        + factor(month(Date, label = TRUE), ordered = FALSE),
-        data = training(splits_2023))
-```
-
-##### Step 3 - Add fitted models to a Model Table
-
-```{r}
-models_tbl_2023 <- modeltime_table(
-    model_fit_arima_no_boost_2023,
-    model_fit_arima_boosted_2023,
-    model_fit_ets_2023,
-    model_fit_lm_2023
-)
-models_tbl_2023
-```
-
-##### Step 4 - Calibrate the model to a testing set
-
-```{r}
-calibration_tbl_2023 <- models_tbl %>%
-    modeltime_calibrate(new_data = testing(splits_2023))
-
-calibration_tbl_2023
-```
-
-##### Step 5 - Testing Set Forecast & Accuracy Evaluation
-
-There are 2 critical parts to an evaluation:
-
--   Visualizing the Forecast vs Test Data Set
--   Evaluating the Test (Out of Sample) Accuracy
-
-**5A - Visualizing the Forecast Test** Visualizing the Test Error is easy to do using the interactive plotly visualization (just toggle the visibility of the models using the Legend).
-
-```{r}
-calibration_tbl_2023 %>%
-    modeltime_forecast(
-        new_data    = testing(splits_2023),
-        actual_data = weather_AMK_2023
-    ) %>%
-    plot_modeltime_forecast(
-      .legend_max_width = 25, # For mobile screens
-      # .interactive      = interactive,
-      .plotly_slider = TRUE
-    )
-```
-
-**5B - Accuracy Metrics** We can use modeltime_accuracy() to collect common accuracy metrics. The default reports the following metrics using yardstick functions:
-
-MAE - Mean absolute error, mae() MAPE - Mean absolute percentage error, mape() MASE - Mean absolute scaled error, mase() SMAPE - Symmetric mean absolute percentage error, smape() RMSE - Root mean squared error, rmse() RSQ - R-squared, rsq()
-
-```{r}
-calibration_tbl_2023 %>%
-    modeltime_accuracy() %>%
-    table_modeltime_accuracy(
-        # .interactive = interactive
-    )
-```
-
-##### Step 6 - Refit to Full Dataset & Forecast Forward
-
-```{r}
-refit_tbl_2023 <- calibration_tbl_2023 %>%
-    modeltime_refit(data = weather_AMK)
-
-refit_tbl_2023 %>%
-    modeltime_forecast(h = "10 days", actual_data = weather_AMK_2023) %>%
-    plot_modeltime_forecast(
-      .legend_max_width = 25, # For mobile screens
-      # .interactive      = interactive,
-      .plotly_slider = TRUE
-    )
 ```
 
 
 
 
-#### Comparing ARIMA
-This section compares the result of auto arima and arima for the period of 1 January 2021 to 31 December 2023.
+#### Rainfall, weekly total
+
+Total of "Daily Rainfall Total (mm)"
 
 ```{r}
-# Auto arima
-model_fit_autoarima <- arima_reg() %>%
-    set_engine(engine = "auto_arima") %>%
-    fit(`Mean Temperature (°C)` ~ Date, data = training(splits))
+# Summarise period-filtered rainfall data based on weekly total
+summarised_rain <- filtered_period %>%
+  group_by_key() %>%
+  index_by(year_week = ~ yearweek(.)) %>%
+  summarise(
+    total_rainfall = sum(.data[[variable_rain]]), na.rm = TRUE)
 
-model_fit_autoarima
+# Filter summarised rainfall data based on multiple selected stations
+summarised_rain_mstn <- summarised_rain  %>%
+  filter(Station %in% selected_stations) 
+
+# Convert the year_week result to the first day of the week for plotting
+summarised_rain_mstn <- summarised_rain_mstn %>%
+  mutate(week_start_date = floor_date(as.Date(year_week), unit = "week"))
+
+# Generate the plot based on filtered data
+plot_ly(summarised_rain_mstn, x = ~week_start_date, y = ~total_rainfall,
+             type = 'scatter', mode = 'lines', color = ~Station,
+             hoverinfo = 'text',
+             text = ~paste("<b>Station:</b>", Station, 
+                           "<br><b>Week Starting:</b>", week_start_date, 
+                           "<br><b>Total rainfall :</b>", total_rainfall, "mm")) %>%
+
+  layout(title = paste("Weekly", variable_rain, "by Station"),
+         xaxis = list(title = ""),
+         yaxis = list(title = "")) %>% 
+  
+  # Display the plot
+  layout(xaxis = list(rangeslider = list(type = "date"))) 
+
+```
+
+:::
+
+### Panel 1b: ACF & PACF
+
+ACF(Autocorrelation function) measures the linear relationship between lagged values of a time series while PACF (Partial Autocorrelation Function) measures the correlation between observations with the effect of the intermediate observations removed. In this section, users can view the ACF and PACF to analyze the time-dependent characteristics of the selected time series data.
+
+Users can choose a single station to generate the ACF and PACF plot. For the purpose of this exercise, we demonstrate using "Ang Mo Kio" station.  
+
+```{r}
+single_station <- "Ang Mo Kio"
+```
+
+:::panel-tabset
+
+### ACF, daily
+
+```{r}
+filtered_period_sstn <- filtered_period  %>%
+  filter(Station %in% single_station) 
+
+ACF <- filtered_period_sstn %>%
+  ACF(filtered_period_sstn[[variable_temp]], lag_max = 100) %>%
+  autoplot() +
+  labs(title = paste("ACF plot of", variable_temp, "for", single_station)) +
+  theme_minimal()
+
+ggplotly(ACF)
+```
+
+### PACF, daily
+
+
+```{r}
+filtered_period_sstn <- filtered_period  %>%
+  filter(Station %in% single_station) 
+
+PACF <- filtered_period_sstn %>%
+  PACF(filtered_period_sstn[[variable_temp]], lag_max = 100) %>%
+  autoplot() +
+  labs(title = paste("PACF plot of", variable_temp, "for", single_station)) +
+  theme_minimal()
+
+ggplotly(PACF)
+```
+
+### ACF, weekly average temperature
+
+```{r}
+summarised_temp_sstn <- summarised_temp  %>%
+  filter(Station %in% single_station) 
+
+
+ACF <- summarised_temp_sstn %>%
+  ACF(avg_temp, lag_max = 50) %>%
+  autoplot() +
+  labs(title = paste("ACF plot of", variable_temp, "for", single_station)) +
+  theme_minimal()
+
+ggplotly(ACF)
+```
+
+### PACF, weekly total rainfall
+
+```{r}
+summarised_rain_sstn <- summarised_rain  %>%
+  filter(Station %in% single_station) 
+
+
+PACF <- summarised_rain_sstn %>%
+  PACF(total_rainfall, lag_max = 50) %>%
+  autoplot() +
+  labs(title = paste("ACF plot of Weekly", variable_rain, "for", single_station)) +
+  theme_minimal()
+
+ggplotly(PACF)
+```
+
+:::
+
+### UI design
+
+![](images/1_Exploration.png)
+
+
+## Section 2: Time Series Decomposition 
+
+This section introduces the STL method, a versatile and robust method that breaks down time series data into trend, seasonality, and remainder components. 
+
+STL is an acronym for “Seasonal and Trend decomposition using Loess”, while loess is a method for estimating nonlinear relationships. We will use STL to uncover deeper insights into our data, highlighting its importance in understanding and predicting trends.
+
+Below are the sample plot of STL decomposition using different tuning parameter. 
+
+### Panel 2: STL Decomposition analysis. 
+```{r}
+stl_formula_default <- STL(`Mean Temperature (°C)`)
+
+stl_formula_tuned <- STL(`Mean Temperature (°C)`
+                         ~ trend(window = 20) +        
+                           ~  season(window = 20))
+```
+
+
+```{r}
+# STL decomposition plot
+a <- filtered_period_sstn %>%
+  model(stl_formula_default) %>%
+  components() %>%
+  autoplot()
+
+ggplotly(a) %>% layout(width = 700, height = 700, 
+                      plot_bgcolor="#edf2f7")
+```
+```{r}
+# STL decomposition plot
+b <- filtered_period_sstn %>%
+  model(stl_formula_tuned) %>%
+  components() %>%
+  autoplot()
+
+ggplotly(b) %>% layout(width = 700, height = 700, 
+                      plot_bgcolor="#edf2f7")
+   
+```
+
+
+The STL decomposition plot consist of four panel. The bottom four panel shows breakdown of three components of STL, namely trend, seasonality, and remainder. These components can be added together to reconstruct the data shown in the top panel. The remainder component shown in the bottom panel is what is left over when the seasonal and trend-cycle components have been subtracted from the data.
+
+### UI design
+![](images/2_Decomposition.png)
+
+
+## Section 3: Time Series Forecasting
+
+### Split data into training and testing
+
+```{r}
+# Define the split point; for example, keeping the first 80% of rows for training
+split_point <- nrow(filtered_period_sstn) * 0.8
+
+# Create the training dataset (first 80% of the data)
+train_daily <- filtered_period_sstn %>% 
+  slice(1:floor(split_point))
+
+# Create the test dataset (remaining 20% of the data)
+test_daily <- filtered_period_sstn %>% 
+  slice((floor(split_point) + 1):n())
+```
+
+
+### Create and fit multiple model to tesing set
+
+We observed that our data exhibits seasonal patterns, and hence we select the models specifically designed to handle such seasonal variations. 
+
+```{r}
+#| eval: false
+#| code-fold: true
+
+#Double check this part on HoltWinters using different packages
+
+ts_train <- ts(data = train_daily$`Mean Temperature (°C)`,
+                start = c(2021,01),
+                frequency = 365)
+autoplot(ts_train)
+
+
+ts_test <- ts(data = train_daily$`Mean Temperature (°C)`,
+                start = c(2023,05,27),
+                frequency = 365)
+autoplot(ts_test)
+
+climate_hw <- HoltWinters(ts_train,seasonal = "additive")
+climate_forecast <- forecast(climate_hw, h=114)
+```
+
+
+```{r}
+train_daily_fit <- train_daily %>%
+  model(
+    # naïve forecast of the seasonally adjusted data
+    STLNaive = decomposition_model(stl_formula_default,
+                               NAIVE(season_adjust)),
+    
+    # auto arima forecast of the seasonally adjusted data
+    STLArima = decomposition_model(stl_formula_default, ARIMA(season_adjust)),
+
+    # Exponential Smoothing forecast of the seasonally adjusted data
+    STLETS = decomposition_model(stl_formula_default, ETS(season_adjust ~ season("N"))),
+    
+    # Holt-Winters’ additive method
+    HoltWinters = ETS(`Mean Temperature (°C)` ~ error("A") + trend("A") + season("A"))
+    
+    # sn = SNAIVE(`Mean Temperature (°C)` ~ lag("year"))
+  )
+
+# Forecasting
+train_daily_fc <- forecast(train_daily_fit, h = "180 days")
+
+# Plotting the forecasts
+c <- autoplot(train_daily, `Mean Temperature (°C)`) +
+  autolayer(train_daily_fc, level = NULL) +
+  labs(title = "Forecast of mean temperature for Ang Mo Kio",
+       x = "", y = "") +
+  theme_minimal() 
+
+ggplotly(c, tooltip = c("x", "y"))
+```
+
+
+
+```{r}
+d <- autoplot(test_daily, `Mean Temperature (°C)`, series = "Test Data") +
+  autolayer(train_daily_fc, series = "Forecast", level = NULL) +
+  labs(title = "Testing data vs Forecast",
+       x = "", y = "") +
+  theme_minimal()
+
+ggplotly(d, tooltip = c("x", "y"))
+```
+
+
+
+
+### Testing set forcast & Accuracy Evaluation
+
+
+```{r}
+accuracy_metrics <- accuracy(train_daily_fc, test_daily) %>%
+    arrange(.model) %>%
+  select(.model, .type, RMSE, MAE, MAPE, MASE) %>%
+  mutate(across(c(RMSE, MAE, MAPE, MASE), round, 2))
+
+datatable(accuracy_metrics, 
+          class= "hover",
+          rownames = FALSE,
+          width="100%", 
+          options = list(pageLength = 10,scrollX=T))
+```
+
+
+
+### Refit to Full Dataset & Forecast Forward
+
+```{r}
+# Refit models to the full dataset
+full_fit <- filtered_period_sstn %>%
+  model(
+    # naïve forecast of the seasonally adjusted data
+    STLNaive = decomposition_model(stl_formula_default,
+                               NAIVE(season_adjust)),
+    
+    # auto arima forecast of the seasonally adjusted data
+    STLArima = decomposition_model(stl_formula_default, ARIMA(season_adjust)),
+
+    # Exponential Smoothing forecast of the seasonally adjusted data
+    STLETS = decomposition_model(stl_formula_default, ETS(season_adjust ~ season("N"))),
+    
+    # Holt-Winters’ additive method
+    HoltWinters = ETS(`Mean Temperature (°C)` ~ error("A") + trend("A") + season("A"))
+    
+    # sn = SNAIVE(`Mean Temperature (°C)` ~ lag("year"))
+  )
 ```
 
 ```{r}
-# Manual arima
-model_fit_manualarima <- arima_reg(
-        seasonal_period          = 12,
-        non_seasonal_ar          = 3,
-        non_seasonal_differences = 1,
-        non_seasonal_ma          = 3,
-        seasonal_ar              = 1,
-        seasonal_differences     = 0,
-        seasonal_ma              = 1
-    ) %>%
-    set_engine("arima") %>%
-    fit(`Mean Temperature (°C)` ~ Date, data = training(splits))
-
-model_fit_manualarima
+# Forecasting forward
+future_horizon <- "10 days" # Adjust this to your forecast needs
+full_forecast <- forecast(full_fit, h = future_horizon)
+full_forecast
 ```
+
 
 ```{r}
-models_tbl_1 <- modeltime_table(
-    model_fit_autoarima,
-    model_fit_manualarima
-)
-models_tbl_1
+#| eval: false
+df_forecast <- as_tibble(full_forecast)
+datatable(df_forecast)
+
 ```
+
 
 ```{r}
-calibration_tbl_1 <- models_tbl_1 %>%
-    modeltime_calibrate(new_data = testing(splits))
+# Plotting the forecasts along with the full dataset
+e <- autoplot(filtered_period_sstn, `Mean Temperature (°C)`) +
+  autolayer(full_forecast, series = "Forecast", level = NULL) +
+  labs(title = "Full Dataset Forecast for Mean Temperature in Ang Mo Kio",
+       x = "", y = "") +
+  theme_minimal()
 
-calibration_tbl_1
+ggplotly(e, tooltip = c("x", "y"))
 ```
 
-```{r}
-calibration_tbl_1 %>%
-    modeltime_forecast(
-        new_data    = testing(splits),
-        actual_data = weather_AMK
-    ) %>%
-    plot_modeltime_forecast(
-      .legend_max_width = 25, # For mobile screens
-      # .interactive      = interactive,
-      .plotly_slider = TRUE
-    )
-```
 
-```{r}
-calibration_tbl_1 %>%
-    modeltime_accuracy() %>%
-    table_modeltime_accuracy(
-        # .interactive = interactive
-    )
-```
+## Test: Using weekly rainfall
 
-```{r}
-calibration_tbl_1 %>%
-    modeltime_residuals() %>%
-    plot_modeltime_residuals(.interactive = TRUE)
-```
+## Test: Using weekly temperature
 
-```{r}
-refit_tbl_1 <- calibration_tbl_1 %>%
-    modeltime_refit(data = weather_AMK)
+## Test: Using different STL parameter
 
-refit_tbl_1 %>%
-    modeltime_forecast(h = "10 days", actual_data = weather_AMK) %>%
-    plot_modeltime_forecast(
-      .legend_max_width = 25, # For mobile screens
-      # .interactive      = interactive,
-      .plotly_slider = TRUE
-    )
-```
+## Test: Using different Time Period (1 year)
 
-## UI design

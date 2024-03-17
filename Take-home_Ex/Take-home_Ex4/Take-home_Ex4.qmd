@@ -1,5 +1,5 @@
 ---
-title: "Take-home Exercise 4 (Work-In-Progress)"
+title: "Take-home Exercise 4"
 subtitle: "Prototyping Modules for Visual Analytics Shiny Application"
 author: "Lim Jia Jia"
 date: March 7, 2024
@@ -26,21 +26,23 @@ In this take-home exercise, we are required to select one of the module of our p
 The module that we are focusing on is the univariate forecasting of the data.
 
 ## Loading R packages
-First and foremost, we will start by loading the R packages required. 
+
+First and foremost, we will start by loading the R packages required.
 
 ```{r}
-pacman::p_load(tidyverse, dplyr, lubridate, ggplot2,  
-                fable, fabletools, feasts, tsibble, tsibbledata, kableExtra,
-               plotly, DT, forecast)
+pacman::p_load(tidyverse, ggplot2, tsibble, tsibbledata,  
+                fable, fabletools, feasts, 
+               plotly, DT, fable.prophet)
 ```
 
 ## Data preparation
-As this take home exercise serves as analysis of one of the module of the project, the data preparation steps is only performed once to ensure that same data set **(weather_imputed_11stations.rds)** are used across all members. Detailed preparation steps can be found in this link. 
 
+As this take home exercise serves as analysis of one of the module of the project, the data preparation steps is only performed once to ensure that same data set **(weather_imputed_11stations.rds)** are used across all members. Detailed preparation steps can be found in this [link](https://isss608-airweatheranalytics.netlify.app/code/data_preparation_weather).
 
 ### Importing the data
 
-We import the processed data set using `read_rds()`, 
+We import the processed data set using `read_rds()`,
+
 ```{r}
 weather <- read_rds("data/weather_imputed_11stations.rds")
 ```
@@ -50,6 +52,7 @@ head(weather)
 ```
 
 ### Convert to tsibble data frame
+
 The dataset comprises daily records of rainfall and temperature gathered from various weather stations across Singapore. Initially, this data is loaded in a 'tibble' format. However, for our forecasting analysis, we will be using [**fable**](https://fable.tidyverts.org/) package, which is part of the [tidyverts](https://tidyverts.org/) ecosystem and requires data in a ['tsibble'](https://tsibble.tidyverts.org/) format. To accommodate this requirement, we will convert our tibble dataframe into a tsibble using the following code.
 
 ```{r}
@@ -58,6 +61,7 @@ weather_tsbl
 ```
 
 The list below shows 11 unique stations.
+
 ```{r}
 Station <- weather_tsbl %>% distinct(Station)
 
@@ -79,12 +83,10 @@ A tsibble consists of a time index, key, and other measured variables in a data-
 -   Each observational unit should be measured at a common interval, if regularly spaced.
 :::
 
-
-
 ## Section 1: Time Series Exploration
 
 In this section, users can interactively explore time series data using a line graph equipped with a time slider. They have the option to select specific stations, variables, and time periods for analysis.
- 
+
 ```{r}
 # user defined parameter
 selected_stations <- c("Ang Mo Kio", "Changi", "Tai Seng") 
@@ -95,9 +97,8 @@ end_date <-  "2023-12-31"
 
 ```
 
-### Panel 1a: line graph
-:::panel-tabset
 
+::: panel-tabset
 #### Daily view
 
 ```{r}
@@ -129,13 +130,9 @@ plot_ly(filtered_period_mstn,
 
 ```
 
-
-
 #### Weekly: avarage Temperature
 
-Average of the following variables:
-"Mean Temperature (°C)", "Minimum Temperature (°C)", "Maximum Temperature (°C)"
-
+The code chunk below plot line graph for weekly summarise view of the following variables: "Mean Temperature (°C)", "Minimum Temperature (°C)", "Maximum Temperature (°C)"
 
 ```{r}
 
@@ -171,12 +168,9 @@ plot_ly(summarised_temp_mstn, x = ~week_start_date, y = ~avg_temp,
 
 ```
 
-
-
-
 #### Rainfall, weekly total
 
-Total of "Daily Rainfall Total (mm)"
+The code chunk below plot line graph for weekly summarise view of "Daily Rainfall Total (mm)".
 
 ```{r}
 # Summarise period-filtered rainfall data based on weekly total
@@ -210,100 +204,36 @@ plot_ly(summarised_rain_mstn, x = ~week_start_date, y = ~total_rainfall,
   layout(xaxis = list(rangeslider = list(type = "date"))) 
 
 ```
-
 :::
 
-### Panel 1b: ACF & PACF
-
-ACF(Autocorrelation function) measures the linear relationship between lagged values of a time series while PACF (Partial Autocorrelation Function) measures the correlation between observations with the effect of the intermediate observations removed. In this section, users can view the ACF and PACF to analyze the time-dependent characteristics of the selected time series data.
-
-Users can choose a single station to generate the ACF and PACF plot. For the purpose of this exercise, we demonstrate using "Ang Mo Kio" station.  
-
-```{r}
-single_station <- "Ang Mo Kio"
-```
-
-:::panel-tabset
-
-### ACF, daily
-
-```{r}
-filtered_period_sstn <- filtered_period  %>%
-  filter(Station %in% single_station) 
-
-ACF <- filtered_period_sstn %>%
-  ACF(filtered_period_sstn[[variable_temp]], lag_max = 100) %>%
-  autoplot() +
-  labs(title = paste("ACF plot of", variable_temp, "for", single_station)) +
-  theme_minimal()
-
-ggplotly(ACF)
-```
-
-### PACF, daily
 
 
-```{r}
-filtered_period_sstn <- filtered_period  %>%
-  filter(Station %in% single_station) 
-
-PACF <- filtered_period_sstn %>%
-  PACF(filtered_period_sstn[[variable_temp]], lag_max = 100) %>%
-  autoplot() +
-  labs(title = paste("PACF plot of", variable_temp, "for", single_station)) +
-  theme_minimal()
-
-ggplotly(PACF)
-```
-
-### ACF, weekly average temperature
-
-```{r}
-summarised_temp_sstn <- summarised_temp  %>%
-  filter(Station %in% single_station) 
 
 
-ACF <- summarised_temp_sstn %>%
-  ACF(avg_temp, lag_max = 50) %>%
-  autoplot() +
-  labs(title = paste("ACF plot of", variable_temp, "for", single_station)) +
-  theme_minimal()
-
-ggplotly(ACF)
-```
-
-### PACF, weekly total rainfall
-
-```{r}
-summarised_rain_sstn <- summarised_rain  %>%
-  filter(Station %in% single_station) 
-
-
-PACF <- summarised_rain_sstn %>%
-  PACF(total_rainfall, lag_max = 50) %>%
-  autoplot() +
-  labs(title = paste("ACF plot of Weekly", variable_rain, "for", single_station)) +
-  theme_minimal()
-
-ggplotly(PACF)
-```
-
-:::
 
 ### UI design
 
 ![](images/1_Exploration.png)
 
+## Section 2: Time Series Decomposition
 
-## Section 2: Time Series Decomposition 
-
-This section introduces the STL method, a versatile and robust method that breaks down time series data into trend, seasonality, and remainder components. 
+This section introduces the STL method, a versatile and robust method that breaks down time series data into trend, seasonality, and remainder components.
 
 STL is an acronym for “Seasonal and Trend decomposition using Loess”, while loess is a method for estimating nonlinear relationships. We will use STL to uncover deeper insights into our data, highlighting its importance in understanding and predicting trends.
 
-Below are the sample plot of STL decomposition using different tuning parameter. 
+Below are the sample plot of STL decomposition using different tuning parameter.
 
-### Panel 2: STL Decomposition analysis. 
+### STL Decomposition analysis.
+
+```{r}
+single_station <- "Ang Mo Kio"
+
+filtered_period_sstn <- filtered_period  %>%
+  filter(Station %in% single_station) 
+```
+
+
+
 ```{r}
 stl_formula_default <- STL(`Mean Temperature (°C)`)
 
@@ -312,35 +242,88 @@ stl_formula_tuned <- STL(`Mean Temperature (°C)`
                            ~  season(window = 20))
 ```
 
-
+::: panel-tabset
+#### **Auto STL decomposition plot**
 ```{r}
-# STL decomposition plot
-a <- filtered_period_sstn %>%
+stl_default <- filtered_period_sstn %>%
   model(stl_formula_default) %>%
-  components() %>%
-  autoplot()
-
-ggplotly(a) %>% layout(width = 700, height = 700, 
-                      plot_bgcolor="#edf2f7")
+  components() 
+stl_default
 ```
+
 ```{r}
-# STL decomposition plot
-b <- filtered_period_sstn %>%
-  model(stl_formula_tuned) %>%
-  components() %>%
-  autoplot()
+stl_default_tibble <- as_tibble(stl_default) %>%
+  select(Date, `Mean Temperature (°C)`, trend, season_week, season_year, remainder, season_adjust) %>%
+  mutate(trend = round(trend, 2),
+         season_adjust = round(season_adjust, 2),
+         season_week = round(season_week, 4),
+         season_year = round(season_year, 4),
+         remainder = round(remainder, 4))
 
-ggplotly(b) %>% layout(width = 700, height = 700, 
-                      plot_bgcolor="#edf2f7")
-   
+datatable(stl_default_tibble, 
+          class= "nowrap", 
+          rownames = FALSE, 
+          filter = 'top',  # Enables filters at the top of each column
+          width="100%", 
+          options = list(pageLength = 10, scrollX = TRUE))
 ```
 
+
+```{r}
+plot_stl_default <- stl_default %>%
+  autoplot()
+
+ggplotly(plot_stl_default) %>% layout(width = 700, height = 700, 
+                      plot_bgcolor="#edf2f7")
+```
+
+
+
+#### **Manual STL decomposition plot**
+
+
+```{r}
+stl_tuned <- filtered_period_sstn %>%
+  model(stl_formula_tuned) %>%
+  components() 
+stl_default
+```
+
+```{r}
+stl_tuned_tibble <- as_tibble(stl_tuned) %>%
+  select(Date, `Mean Temperature (°C)`, trend, season_week, season_year, remainder, season_adjust) %>%
+  mutate(trend = round(trend, 2),
+         season_adjust = round(season_adjust, 2),
+         season_week = round(season_week, 4),
+         season_year = round(season_year, 4),
+         remainder = round(remainder, 4))
+
+datatable(stl_tuned_tibble, 
+          class= "nowrap", 
+          rownames = FALSE, 
+          filter = 'top',  # Enables filters at the top of each column
+          width="100%", 
+          options = list(pageLength = 10, scrollX = TRUE))
+```
+
+
+```{r}
+plot_stl_tuned <- stl_tuned %>%
+  autoplot()
+
+ggplotly(plot_stl_tuned) %>% layout(width = 700, height = 700, 
+                      plot_bgcolor="#edf2f7")
+```
+
+:::
 
 The STL decomposition plot consist of four panel. The bottom four panel shows breakdown of three components of STL, namely trend, seasonality, and remainder. These components can be added together to reconstruct the data shown in the top panel. The remainder component shown in the bottom panel is what is left over when the seasonal and trend-cycle components have been subtracted from the data.
 
-### UI design
-![](images/2_Decomposition.png)
 
+
+### UI design
+
+![](images/2_Decomposition.png)
 
 ## Section 3: Time Series Forecasting
 
@@ -359,39 +342,17 @@ test_daily <- filtered_period_sstn %>%
   slice((floor(split_point) + 1):n())
 ```
 
-
 ### Create and fit multiple model to tesing set
 
-We observed that our data exhibits seasonal patterns, and hence we select the models specifically designed to handle such seasonal variations. 
+We observed that our data exhibits seasonal patterns, and hence we select the models specifically designed to handle such seasonal variations.
 
-```{r}
-#| eval: false
-#| code-fold: true
-
-#Double check this part on HoltWinters using different packages
-
-ts_train <- ts(data = train_daily$`Mean Temperature (°C)`,
-                start = c(2021,01),
-                frequency = 365)
-autoplot(ts_train)
-
-
-ts_test <- ts(data = train_daily$`Mean Temperature (°C)`,
-                start = c(2023,05,27),
-                frequency = 365)
-autoplot(ts_test)
-
-climate_hw <- HoltWinters(ts_train,seasonal = "additive")
-climate_forecast <- forecast(climate_hw, h=114)
-```
-
+According to Hyndman and Athanasopoulos (Forecasting: Principles and Practice, Chapter 5.7)
 
 ```{r}
 train_daily_fit <- train_daily %>%
   model(
     # naïve forecast of the seasonally adjusted data
-    STLNaive = decomposition_model(stl_formula_default,
-                               NAIVE(season_adjust)),
+    STLNaive = decomposition_model(stl_formula_default, NAIVE(season_adjust)),              
     
     # auto arima forecast of the seasonally adjusted data
     STLArima = decomposition_model(stl_formula_default, ARIMA(season_adjust)),
@@ -399,19 +360,26 @@ train_daily_fit <- train_daily %>%
     # Exponential Smoothing forecast of the seasonally adjusted data
     STLETS = decomposition_model(stl_formula_default, ETS(season_adjust ~ season("N"))),
     
-    # Holt-Winters’ additive method
-    HoltWinters = ETS(`Mean Temperature (°C)` ~ error("A") + trend("A") + season("A"))
+    # AUTO arima
+    AUTOARIMA = ARIMA(`Mean Temperature (°C)`),    
     
-    # sn = SNAIVE(`Mean Temperature (°C)` ~ lag("year"))
+    # AUTO prophet
+    AUTOprophet = prophet(`Mean Temperature (°C)`),
+    
+    # Auto Exponential smoothing
+    AUTOETS = ETS(`Mean Temperature (°C)`)
+    
   )
 
+forecast_horizon <- nrow(test_daily)
+
 # Forecasting
-train_daily_fc <- forecast(train_daily_fit, h = "180 days")
+train_daily_fc <- forecast(train_daily_fit, h = forecast_horizon)
 
 # Plotting the forecasts
 c <- autoplot(train_daily, `Mean Temperature (°C)`) +
   autolayer(train_daily_fc, level = NULL) +
-  labs(title = "Forecast of mean temperature for Ang Mo Kio",
+  labs(title = "Forecast Validation for daily mean temperature of Ang Mo Kio Station",
        x = "", y = "") +
   theme_minimal() 
 
@@ -430,11 +398,7 @@ d <- autoplot(test_daily, `Mean Temperature (°C)`, series = "Test Data") +
 ggplotly(d, tooltip = c("x", "y"))
 ```
 
-
-
-
 ### Testing set forcast & Accuracy Evaluation
-
 
 ```{r}
 accuracy_metrics <- accuracy(train_daily_fc, test_daily) %>%
@@ -449,8 +413,6 @@ datatable(accuracy_metrics,
           options = list(pageLength = 10,scrollX=T))
 ```
 
-
-
 ### Refit to Full Dataset & Forecast Forward
 
 ```{r}
@@ -458,8 +420,7 @@ datatable(accuracy_metrics,
 full_fit <- filtered_period_sstn %>%
   model(
     # naïve forecast of the seasonally adjusted data
-    STLNaive = decomposition_model(stl_formula_default,
-                               NAIVE(season_adjust)),
+    STLNaive = decomposition_model(stl_formula_default, NAIVE(season_adjust)),              
     
     # auto arima forecast of the seasonally adjusted data
     STLArima = decomposition_model(stl_formula_default, ARIMA(season_adjust)),
@@ -467,34 +428,30 @@ full_fit <- filtered_period_sstn %>%
     # Exponential Smoothing forecast of the seasonally adjusted data
     STLETS = decomposition_model(stl_formula_default, ETS(season_adjust ~ season("N"))),
     
-    # Holt-Winters’ additive method
-    HoltWinters = ETS(`Mean Temperature (°C)` ~ error("A") + trend("A") + season("A"))
+    # AUTO arima
+    AUTOARIMA = ARIMA(`Mean Temperature (°C)`),    
     
-    # sn = SNAIVE(`Mean Temperature (°C)` ~ lag("year"))
+    # AUTO prophet
+    AUTOprophet = prophet(`Mean Temperature (°C)`),
+    
+    # Auto Exponential smoothing
+    AUTOETS = ETS(`Mean Temperature (°C)`)
   )
 ```
 
-```{r}
-# Forecasting forward
-future_horizon <- "10 days" # Adjust this to your forecast needs
-full_forecast <- forecast(full_fit, h = future_horizon)
-full_forecast
-```
 
 
-```{r}
-#| eval: false
-df_forecast <- as_tibble(full_forecast)
-datatable(df_forecast)
 
-```
 
 
 ```{r}
 # Plotting the forecasts along with the full dataset
+future_horizon <- "1 month" # Adjust this to your forecast needs
+full_forecast <- forecast(full_fit, h = future_horizon)
+
 e <- autoplot(filtered_period_sstn, `Mean Temperature (°C)`) +
   autolayer(full_forecast, series = "Forecast", level = NULL) +
-  labs(title = "Full Dataset Forecast for Mean Temperature in Ang Mo Kio",
+  labs(title = "Future Forecast Plot for daily mean temperature of Ang Mo Kio Station",
        x = "", y = "") +
   theme_minimal()
 
@@ -502,11 +459,35 @@ ggplotly(e, tooltip = c("x", "y"))
 ```
 
 
-## Test: Using weekly rainfall
 
-## Test: Using weekly temperature
+```{r}
+# Table view
 
-## Test: Using different STL parameter
+full_forecast_tibble <- as_tibble(full_forecast)
 
-## Test: Using different Time Period (1 year)
 
+col<- full_forecast_tibble %>% 
+  select(.model, Date, .mean) %>% 
+  rename(Forecast = .mean) %>%
+  mutate(Forecast = round(Forecast, 2),
+         .model = as.factor(.model))
+
+
+datatable(col, 
+          class= "hover", 
+          rownames = FALSE, 
+          filter = 'top',  # Enables filters at the top of each column
+          width="100%", 
+          options = list(pageLength = 5, scrollX = TRUE))
+
+```
+
+### UI design
+
+
+![](images/3_Forecasting_1.png)
+
+![](images/3_Forecasting_2.png)
+
+## Reference
+Hyndman, R.J., & Athanasopoulos, G. (2021) Forecasting: principles and practice, 3rd edition, OTexts: Melbourne, Australia. OTexts.com/fpp3. 

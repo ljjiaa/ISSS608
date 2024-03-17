@@ -88,23 +88,102 @@ Forecasting <-fluidRow(
 
 ##### Decompostion - Jia Jia ##### 
 Decompostion <-fluidRow(
-  box(title = "Controls", width = 3, status = "primary", solidHeader = TRUE,
-      uiOutput("station_checkboxes"), # Dynamically create checkboxes
-      radioButtons("variable", "Select Variable",
-                   choices = c("Mean Temperature (°C)" = "Mean Temperature (°C)", 
-                               "Minimum Temperature (°C)" = "Minimum Temperature (°C)", 
-                               "Maximum Temperature (°C)" = "Maximum Temperature (°C)",
-                               "Daily Rainfall Total (mm)" = "Daily Rainfall Total (mm)")),
-      dateInput("startDate", "Start Date", value = "2021-01-01", min = "2021-01-01", max = "2023-12-31"),
-      dateInput("endDate", "End Date", value = "2023-12-31", min = "2021-01-02", max = "2023-12-31"),
-      radioButtons("Compare", "Compare Across",
-                   choices = c("Day" = "Day", 
-                               "Week" = "Week", 
-                               "Month" = "Month")),
+  box(title = "Controls", width = 3, height= 600, status = "primary", solidHeader = TRUE,
+      # uiOutput("station_checkboxes"), # Dynamically create checkboxes
+      selectInput("station",
+                  "Select station",
+                  choices = c("Ang Mo Kio")),
+      dateRangeInput("dateRange",
+                     "Date range",
+                     start = "2021-01-01",
+                     end = "2023-12-31",
+                     min = "2021-01-01",
+                     max = "2023-12-31"),
+      selectInput("variable", "Select Variable",
+                   choices = c("Daily Mean Temperature (°C)" = "Mean Temperature (°C)",
+                               "Daily Minimum Temperature (°C)" = "Minimum Temperature (°C)",
+                               "Daily Maximum Temperature (°C)" = "Maximum Temperature (°C)",
+                               "Weekly Mean Temperature (°C)" = "Mean Temperature (°C)",
+                               "Weekly Minimum Temperature (°C)" = "Minimum Temperature (°C)",
+                               "Weekly Maximum Temperature (°C)" = "Maximum Temperature (°C)",
+                               "Weekly Rainfall Total (mm)" = "Daily Rainfall Total (mm)")),
+
+
+      
+      
+      # radioButtons("variable", "Select Variable",
+      #              choices = c("Mean Temperature (°C)" = "Mean Temperature (°C)", 
+      #                          "Minimum Temperature (°C)" = "Minimum Temperature (°C)", 
+      #                          "Maximum Temperature (°C)" = "Maximum Temperature (°C)",
+      #                          "Daily Rainfall Total (mm)" = "Daily Rainfall Total (mm)")),
+      # 
+      # radioButtons("Compare", "Compare Across",
+      #              choices = c("Day" = "Day", 
+      #                          "Week" = "Week", 
+      #                          "Month" = "Month")),
       sliderInput("lags", "Trend Window", min = 0, max = 365, value = 0),
       sliderInput("lags", "Season Window", min = 0, max = 365, value = 0),
   ),
-  box(title = "STL Decomposition Analysis", width = 9, height= 750, status = "primary", solidHeader = TRUE,
+  box(title = "STL Decomposition Analysis", width = 9, height= 550, status = "primary", solidHeader = TRUE,
+      collapsible = TRUE,
+      plotlyOutput("STL")
+  ),
+  box(title = "Table view", width = 9, height= 200, status = "primary", solidHeader = TRUE,
+      collapsible = TRUE,
+      plotlyOutput("STL")
+  )
+)
+
+#### Forecasting - jia jia
+
+Forecasting <-fluidRow(
+  box(title = "Controls", width = 3, height= 700, status = "primary", solidHeader = TRUE,
+      # uiOutput("station_checkboxes"), # Dynamically create checkboxes
+      selectInput("station",
+                  "Select Station",
+                  choices = c("Ang Mo Kio")),
+      dateRangeInput("dateRange",
+                     "Date Range",
+                     start = "2021-01-01",
+                     end = "2023-12-31",
+                     min = "2021-01-01",
+                     max = "2023-12-31"),
+      selectInput("variable", "Select Variable",
+                  choices = c("Daily Mean Temperature (°C)" = "Mean Temperature (°C)",
+                              "Daily Minimum Temperature (°C)" = "Minimum Temperature (°C)",
+                              "Daily Maximum Temperature (°C)" = "Maximum Temperature (°C)",
+                              "Weekly Mean Temperature (°C)" = "Mean Temperature (°C)",
+                              "Weekly Minimum Temperature (°C)" = "Minimum Temperature (°C)",
+                              "Weekly Maximum Temperature (°C)" = "Maximum Temperature (°C)",
+                              "Weekly Rainfall Total (mm)" = "Daily Rainfall Total (mm)")),
+      
+      checkboxGroupInput("modelSelect",
+                         "Select Forecasting Models",
+                         choices = list("STL Naive" = "STLNaive",
+                                        "STL ARIMA" = "STLArima",
+                                        "STL ETS" = "STLETS",
+                                        "AUTO ARIMA" = "AUTOARIMA",
+                                        "AUTO Prophet" = "AUTOprophet",
+                                        "AUTO ETS" = "AUTOETS")),
+      
+      
+      # radioButtons("variable", "Select Variable",
+      #              choices = c("Mean Temperature (°C)" = "Mean Temperature (°C)", 
+      #                          "Minimum Temperature (°C)" = "Minimum Temperature (°C)", 
+      #                          "Maximum Temperature (°C)" = "Maximum Temperature (°C)",
+      #                          "Daily Rainfall Total (mm)" = "Daily Rainfall Total (mm)")),
+      # 
+      # radioButtons("Compare", "Compare Across",
+      #              choices = c("Day" = "Day", 
+      #                          "Week" = "Week", 
+      #                          "Month" = "Month")),
+      sliderInput("days", "Select Train-Test Split", min = 0, max = 1, value = 0
+      ),
+      sliderInput("days", "Select Forecast Period", min = 0, max = 365, value = 0, 
+                  post = " days"),
+
+  ),
+  box(title = "Forecast Validation", width = 9, height= 650, status = "primary", solidHeader = TRUE,
       collapsible = TRUE,
       plotlyOutput("STL")
   )
